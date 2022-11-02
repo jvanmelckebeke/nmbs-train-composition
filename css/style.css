@@ -10,6 +10,7 @@
 
 
     --page-background: #008ff5;
+    --page-background-alternative: #58FCAD;
     --muted-text-color: #BADEF7;
     --muted-extra-color: #A3BCCC;
     --accent-color: #45E698;
@@ -61,25 +62,81 @@ img {
     height: auto;
 }
 
+
+/*----------------------------------------------
+# Objects
+------------------------------------------------*/
+.o-hide-accessible {
+    /* this is some shitty weird ass hack I hate */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
 /*----------------------------------------------
 # Page
 ------------------------------------------------*/
 .c-page {
     height: 100vh;
     /*min-height: 100vh;*/
-    background-color: var(--page-background);
+    /*background-color: var(--page-background);*/
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     transition: height var(--default-transition);
+    row-gap: 1rem;
 }
 
 
+/*----------------------------------------------
+# Container
+----------------------------------------------*/
+
 .c-container {
     flex-basis: 100%;
+    width: 100%;
+}
+
+.c-container--header {
+    margin-top: 0;
+    align-self: flex-start;
+    background-color: var(--page-background);
+}
+
+/*----------------------------------------------
+## Container - Search
+----------------------------------------------*/
+
+.c-container--search {
+    /*height: 10vh;*/
+    padding-bottom: 1rem;
+}
+
+
+/*----------------------------------------------
+## Container - Day
+----------------------------------------------*/
+
+.c-container--day {
+    align-self: start;
+}
+
+
+/*----------------------------------------------
+## Container - Results
+----------------------------------------------*/
+
+.c-container--results {
+    background-color: white;
+    padding: 1rem 0;
 }
 
 /*----------------------------------------------
@@ -88,12 +145,12 @@ img {
 .c-header {
     padding: 1rem 0;
 
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
 
     transition: all var(--default-transition);
+
 }
 
 /*----------------------------------------------
@@ -113,10 +170,22 @@ img {
 
 .c-form {
     text-align: center;
+    margin-bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .c-form-control {
+    margin: 0 0.5rem;
+}
 
+.c-form-control--search {
+    display: block;
+    width: 90vw;
 }
 
 /*----------------------------------------------
@@ -166,10 +235,20 @@ img {
 
 .c-label {
     position: relative;
+    display: flex;
+    font-weight: 600;
 }
 
+.c-label-text {
+    margin: 0 0.5rem;
+}
+
+/*----------------------------------------------
+## Label - Search
+----------------------------------------------*/
 
 .c-label--search {
+    display: block;
 }
 
 .c-label-search--text {
@@ -182,7 +261,6 @@ img {
     border: none;
     color: var(--muted-text-color);
     font-size: 1.5rem;
-    font-weight: 600;
     border-bottom: 2px solid var(--muted-extra-color);
     transition: all var(--default-transition-timing) ease-in;
 }
@@ -202,6 +280,26 @@ img {
     color: var(--accent-color);
 }
 
+/*----------------------------------------------
+## Label - Day
+----------------------------------------------*/
+
+.c-label--day {
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 1fr;*/
+
+}
+
+.c-label-day--text {
+
+    font-weight: 600;
+}
+
+.c-input--day {
+    /*grid-row: 1;*/
+    /*grid-column: 3;*/
+}
+
 
 /*----------------------------------------------
 # Buttons
@@ -217,7 +315,11 @@ img {
     font-size: 1.25rem;
     font-weight: 600;
     outline: none;
-    transition: all var(--default-transition-timing) ease-in;
+    transition: all var(--default-transition-timing) ease-in, background-color var(--default-transition-timing) ease-out;
+}
+
+.c-button:hover {
+    background-color: hotpink;
 }
 
 .c-button:focus {
@@ -241,6 +343,106 @@ img {
 }
 
 /*----------------------------------------------
+# Date section
+----------------------------------------------*/
+.c-container--day {
+    background-color: var(--page-background-alternative);
+    padding: 1rem 0;
+}
+
+.c-form--day {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/*----------------------------------------------
+# Toggle
+----------------------------------------------*/
+
+.c-option:checked + .c-custom-toggle .c-custom-toggle__fake-input {
+    background-color: var(--color-pallette-1);
+    border-color: #2E77E6;
+}
+
+.c-custom-toggle--inverted {
+    /*width: 100%;*/
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.c-custom-toggle--inverted .c-custom-toggle__fake-input {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+.c-custom-toggle__fake-input {
+    display: flex;
+    align-items: center;
+    height: 1.5rem;
+    width: 3rem;
+    margin-right: 0.5rem;
+    background-color: #F5F6FA;
+    border-radius: 32px;
+    border: 1px solid #e2e3e7;
+    transition: all var(--default-transition);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.161);
+}
+
+.c-option:checked + .c-custom-toggle .c-custom-toggle__fake-input::after {
+    /* filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.161)); */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.161);
+    transform: translateX(24px);
+}
+
+.c-custom-toggle__fake-input::after {
+    display: block;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: white;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.161);
+    border-radius: 50%;
+    content: "";
+    transition: all var(--default-transition);
+}
+
+/*----------------------------------------------
+# Select
+----------------------------------------------*/
+
+.c-custom-select {
+    position: relative;
+}
+
+.c-custom-select__symbol {
+    position: absolute;
+    top: 0.125rem;
+    right: 0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--color-pallette-2);
+    pointer-events: none;
+}
+
+.c-select--day {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border-radius: 0.8rem;
+    border: 1px solid var(--color-pallette-2);
+    outline: none;
+    background-color: #F5F6FA;
+
+    padding: 0.25rem 0.5rem;
+}
+
+.c-label--day {
+    position: relative;
+}
+
+/*----------------------------------------------
 # Footer
 ----------------------------------------------*/
 
@@ -253,13 +455,14 @@ img {
 }
 
 .c-footer {
+    align-self: flex-end;
     padding: 1rem 0;
     text-align: center;
     font-size: 0.75rem;
     color: var(--muted-text-color);
-    /* place the footer on the bottom*/
-    position: absolute;
-    bottom: 0;
+
+    background-color: var(--page-background);
+    margin-bottom: 0;
 }
 
 /*----------------------------------------------

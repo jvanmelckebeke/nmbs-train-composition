@@ -16,32 +16,106 @@
 
 </head>
 <body class="c-page">
-<section class="c-container c-container--search">
-    <div class="c-header">
-        <h1 class="c-title">Train Composition</h1>
-    </div>
-    <form action="" method="get" class="c-form">
-        <div class="c-form-control">
-            <label class="c-label c-label--search">
-                <span class="c-label-search--text">Search line</span>
-                <input class="c-input c-input--search" type="number" name="train" placeholder="Train number">
-            </label>
-            <button class="c-button c-button--search" type="submit">Search</button>
+<section class="c-container c-container--header">
+    <div class="c-container c-container--search">
+        <div class="c-header">
+            <h1 class="c-title">Train Composition</h1>
         </div>
-    </form>
-</section>
-<section class="c-container c-container--results js-search-results u-invisible">
-    <div>
-        <p>lorem ipsum </p>
+        <form action="" method="get" class="c-form js-form-line">
+            <div class="c-form-control c-form-control--search">
+                <label class="c-label c-label--search">
+                    <span class="c-label-text c-label-search--text">Search line</span>
+                    <input class="c-input c-input--search" type="number" name="train" min="0"
+                           placeholder="Train number">
+                </label>
+                <button class="c-button c-button--search" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="c-container c-container--day js-day">
+        <form action="" method="get" class="c-form c-form--day js-form-day">
+            <div class="c-form-control c-form-control--day">
+                <label class="c-label c-label--day">
+                    <span class="c-label-text c-label-day--text">Day</span>
+                    <select class="c-input c-select--day" name="day">
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                        <option value="sunday">Sunday</option>
+                    </select>
+                    <svg class="c-custom-select__symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M7,10l5,5,5-5Z"></path>
+                    </svg>
+                </label>
+            </div>
+            <div class="c-form-control c-form-control--holiday">
+                <input class="c-option c-option--hidden o-hide-accessible" type="checkbox" id="toggle-holiday">
+                <label class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted" for="toggle-holiday">
+                    <span class="c-custom-toggle__fake-input"></span>
+                    Holiday
+                </label>
+            </div>
+            <div class="c-form-control c-form-control--touristic-period">
+                <input class="c-option c-option--hidden o-hide-accessible" type="checkbox" id="toggle-touristic-period">
+                <label class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted"
+                       for="toggle-touristic-period">
+                    <span class="c-custom-toggle__fake-input"></span>
+                    Touristic period
+                </label>
+            </div>
+        </form>
     </div>
 </section>
-<footer class="c-footer">
+<section class="c-container c-container--results js-search-results">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus varius leo eu quam congue, sit amet viverra
+        nulla sodales. Mauris ex felis, placerat sed metus a, pretium faucibus odio. Suspendisse non congue sem, at
+        interdum mi. Fusce dolor lorem, commodo sit amet nulla quis, fermentum lacinia velit. Aliquam nec aliquet eros.
+        Quisque tristique commodo ornare. Maecenas feugiat mauris id mauris hendrerit mollis. Nunc sed viverra leo, a
+        pharetra ipsum. Vestibulum luctus dapibus tincidunt. Donec elementum venenatis dolor sit amet fringilla.
+
+        Mauris rutrum metus orci, in imperdiet eros venenatis pellentesque. Nam et metus diam. Suspendisse diam nisl,
+        pulvinar in accumsan sit amet, facilisis vitae ex. Maecenas vitae mattis lorem, non aliquet magna. Morbi rhoncus
+        leo eget lectus dapibus varius. Suspendisse potenti. In vitae purus enim. Ut ac mattis lacus. In posuere magna
+        ut tellus laoreet, eu varius lacus lacinia. Nam ultricies libero eu eros eleifend egestas.
+
+        Cras semper ex vitae efficitur semper. Vestibulum ut ornare neque. Curabitur scelerisque purus justo, sodales
+        tincidunt felis fringilla et. Curabitur tempus malesuada augue, non interdum sapien dictum et. Sed pharetra
+        finibus elit, vel volutpat nibh posuere nec. Proin tristique a enim hendrerit tristique. Sed tincidunt velit id
+        neque fringilla vulputate id eu lectus. Ut interdum elit eu fermentum euismod. Nulla ipsum libero, pretium non
+        semper non, ultrices sed sem. Vivamus tellus nibh, varius vitae semper quis, auctor id dui.
+
+        Integer faucibus nisi eget eros maximus laoreet. Proin in velit eget nisl gravida vulputate a id nibh. Donec
+        ultrices, leo viverra maximus ornare, nisi enim hendrerit elit, quis viverra quam augue et massa. Sed nec lacus
+        ac mi faucibus ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat, diam ac
+        aliquet vulputate, odio nisl posuere nisi, quis pellentesque risus nibh a odio. Suspendisse ut euismod ex. Proin
+        aliquet, dui et aliquam ultrices, ante tellus imperdiet massa, dignissim sodales sem nulla non mauris.
+        Vestibulum fermentum dolor tortor. Sed non enim eu magna sollicitudin rutrum et id dui. Fusce luctus tellus
+        libero, sit amet imperdiet urna egestas in. In consequat massa dui, sed accumsan sapien placerat vel. Duis sit
+        amet sollicitudin lectus. Nullam sed tempor dui.
+
+        Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin tristique a purus et tincidunt. Morbi quis
+        justo at odio mattis tempus. Sed convallis ipsum sem, vel cursus eros placerat eget. Nunc mollis, ligula non
+        blandit fringilla, turpis ex dignissim est, ac ultrices augue libero et massa. Sed vel euismod nulla. Sed
+        lobortis in erat a feugiat. Morbi felis metus, lacinia eget risus et, eleifend laoreet lacus. Cras placerat
+        tortor at risus laoreet, et rutrum massa accumsan. Fusce venenatis malesuada varius. Integer in ultrices erat.
+        Donec sed molestie nibh. Fusce egestas quis erat eu tempus. Donec rutrum ut lectus ornare iaculis. Nulla
+        faucibus, est eu luctus auctor, ipsum est cursus nisl, ut venenatis neque lectus eget eros. Maecenas eget
+        gravida velit.
+    </p>
+</section>
+<footer class="c-container c-footer">
     <p>
         &copy; 2022 Jari Van Melckebeke
     </p>
     <p>
-        Original data retrieved from <a href="https://www.beluxtrains.net/" target="_blank" >BeLuxTrains</a>, authors of the railcar
-        illustrations can be found on <a href="https://www.beluxtrains.net/indexen.php?page=rslist" target="_blank">the BeLuxTrains
+        Original data retrieved from <a href="https://www.beluxtrains.net/" target="_blank">BeLuxTrains</a>, authors of
+        the railcar
+        illustrations can be found on <a href="https://www.beluxtrains.net/indexen.php?page=rslist" target="_blank">the
+        BeLuxTrains
         website</a>
     </p>
 </footer>
