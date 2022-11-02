@@ -12,9 +12,10 @@
     --page-background: #008ff5;
     --muted-text-color: #BADEF7;
     --muted-extra-color: #A3BCCC;
-    --accent-color: var(--color-pallette-4);
+    --accent-color: #45E698;
+    --accent-color-2: #3DB6F2;
 
-    --default-transition-timing: 0.3s;
+    --default-transition-timing: 0.25s;
     --default-transition-timing-function: ease;
     --default-transition: var(--default-transition-timing) var(--default-transition-timing-function);
 }
@@ -70,14 +71,15 @@ img {
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     transition: height var(--default-transition);
 }
 
 
-/* center container to the middle of the page */
 .c-container {
+    flex-basis: 100%;
 }
 
 /*----------------------------------------------
@@ -113,6 +115,10 @@ img {
     text-align: center;
 }
 
+.c-form-control {
+
+}
+
 /*----------------------------------------------
 # Inputs
 ----------------------------------------------*/
@@ -141,21 +147,29 @@ img {
     -moz-appearance: textfield;
 }
 
+.c-form-control:focus-within .c-input--search,
+.c-input--search:not(:placeholder-shown),
 .c-input--search:focus {
     outline: none;
-}
-
-.c-label--search:focus .c-input--search,
-.c-input--search:focus {
-    outline: none   ;
     position: relative;
     width: 90%;
     margin: 0 auto;
     padding: 1rem 0.75rem;
     border-radius: 2rem;
     max-width: 90vw;
-
     opacity: 1;
+}
+
+/*----------------------------------------------
+# Label
+----------------------------------------------*/
+
+.c-label {
+    position: relative;
+}
+
+
+.c-label--search {
 }
 
 .c-label-search--text {
@@ -173,33 +187,79 @@ img {
     transition: all var(--default-transition-timing) ease-in;
 }
 
-.c-label--search:focus-within .c-label-search--text {
+.c-form-control:focus-within .c-label-search--text,
+.c-label--search:has(.c-input--search:not(:placeholder-shown)) .c-label-search--text {
     border-bottom: none;
     font-size: 1.25rem;
 }
 
-.c-label--search:focus-within .c-label-search--text:before, .c-label--search:focus-within .c-label-search--text:after {
+/* for creating the '--- Search Line ---' effect */
+.c-form-control:focus-within .c-label-search--text:before,
+.c-form-control:focus-within .c-label-search--text:after,
+.c-label--search:has(.c-input--search:not(:placeholder-shown)) .c-label-search--text:before,
+.c-label--search:has(.c-input--search:not(:placeholder-shown)) .c-label-search--text:after {
     content: '\00a0\2014\00a0'; /* meaning: <space><mdash><space> */
     color: var(--accent-color);
 }
 
 
-.c-label {
-    position: relative;
+/*----------------------------------------------
+# Buttons
+----------------------------------------------*/
 
+.c-button {
+    display: inline-block;
+    padding: 0.4rem 2rem;
+    border-radius: 0.8rem;
+    border: none;
+    background-color: var(--accent-color-2);
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    outline: none;
+    transition: all var(--default-transition-timing) ease-in;
+}
+
+.c-button:focus {
+    background-color: var(--accent-color);
+}
+
+.c-button--search {
+    display: inline-block;
+    opacity: 0;
+    pointer-events: none;
 }
 
 
-.c-label--search {
-
+.c-form-control:has(.c-label--search .c-input--search:not(:placeholder-shown)) .c-button--search,
+.c-form-control:focus-within .c-button--search,
+.c-button--search:focus-within {
+    margin-top: 1rem;
+    opacity: 1;
+    pointer-events: auto;
+    /*background-color: hotpink;*/
 }
 
-.c-tooltip-line-search {
+/*----------------------------------------------
+# Footer
+----------------------------------------------*/
 
+.c-footer a {
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: underline dotted;
+    transition: all var(--default-transition-timing) ease-in;
 }
 
-.c-text-muted {
+.c-footer {
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.75rem;
     color: var(--muted-text-color);
+    /* place the footer on the bottom*/
+    position: absolute;
+    bottom: 0;
 }
 
 /*----------------------------------------------

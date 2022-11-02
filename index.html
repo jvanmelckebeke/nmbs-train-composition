@@ -20,18 +20,31 @@
     <div class="c-header">
         <h1 class="c-title">Train Composition</h1>
     </div>
-    <form action="" method="post" class="c-form">
-        <label class="c-label c-label--search">
-            <span class="c-label-search--text">Search line</span>
-            <input class="c-input c-input--search" type="number" name="train" placeholder="Train number">
-        </label>
+    <form action="" method="get" class="c-form">
+        <div class="c-form-control">
+            <label class="c-label c-label--search">
+                <span class="c-label-search--text">Search line</span>
+                <input class="c-input c-input--search" type="number" name="train" placeholder="Train number">
+            </label>
+            <button class="c-button c-button--search" type="submit">Search</button>
+        </div>
     </form>
 </section>
 <section class="c-container c-container--results js-search-results u-invisible">
-<div>
-    <p>lorem ipsum </p>
-</div>
+    <div>
+        <p>lorem ipsum </p>
+    </div>
 </section>
+<footer class="c-footer">
+    <p>
+        &copy; 2022 Jari Van Melckebeke
+    </p>
+    <p>
+        Original data retrieved from <a href="https://www.beluxtrains.net/" target="_blank" >BeLuxTrains</a>, authors of the railcar
+        illustrations can be found on <a href="https://www.beluxtrains.net/indexen.php?page=rslist" target="_blank">the BeLuxTrains
+        website</a>
+    </p>
+</footer>
 </body>
 <script src="js/main.js"></script>
 </html>
