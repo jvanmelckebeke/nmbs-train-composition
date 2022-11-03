@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js"></script>
 </head>
-<body class="c-page">
-<section class="c-container c-container--header">
-    <div class="c-container c-container--search">
-        <div class="c-header">
+<body class="c-page js-page">
+<section class="c-container c-container--header js-header">
+    <div class="c-container c-container--search ">
+        <div class="c-container-search__item c-header">
             <h1 class="c-title">Train Composition</h1>
         </div>
-        <form action="" method="get" class="c-form js-form-line">
+        <form action="" method="get" class="c-container-search__item c-form js-form-line">
             <div class="c-form-control c-form-control--search">
                 <label class="c-label c-label--search">
                     <span class="c-label-text c-label-search--text">Search line</span>
@@ -32,7 +32,7 @@
             </div>
         </form>
     </div>
-    <div class="c-container c-container--day js-day">
+    <div class="c-container c-container-day js-day">
         <form action="" method="get" class="c-form c-form--day js-form-day">
             <div class="c-form-control c-form-control--day">
                 <label class="c-label c-label--day">
@@ -52,14 +52,16 @@
                 </label>
             </div>
             <div class="c-form-control c-form-control--holiday">
-                <input class="c-option c-option--hidden js-holiday o-hide-accessible" type="checkbox" id="toggle-holiday">
+                <input class="c-option c-option--hidden js-holiday o-hide-accessible" type="checkbox"
+                       id="toggle-holiday">
                 <label class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted" for="toggle-holiday">
                     <span class="c-custom-toggle__fake-input"></span>
                     Holiday
                 </label>
             </div>
             <div class="c-form-control c-form-control--touristic-period">
-                <input class="c-option c-option--hidden js-touristic-period o-hide-accessible" type="checkbox" id="toggle-touristic-period">
+                <input class="c-option c-option--hidden js-touristic-period o-hide-accessible" type="checkbox"
+                       id="toggle-touristic-period">
                 <label class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted"
                        for="toggle-touristic-period">
                     <span class="c-custom-toggle__fake-input"></span>
@@ -69,38 +71,7 @@
         </form>
     </div>
 </section>
-<section class="c-container c-container--results js-search-results">
-    <div class="c-result">
-        <div class="c-result__header">
-            <h1 class="c-line-title">IC 3639</h1>
-            <span>From A to B</span>
-        </div>
-        <div class="c-result__variant">
-            <h2>In general</h2>
-            <ul class="c-line-stops">
-                <li class="c-line-stops__item">Landen</li>
-                <li class="c-line-stops__item">Neerwinden</li>
-                <li class="c-line-stops__item">Ezemaal</li>
-                <li class="c-line-stops__item">Tienen</li>
-                <li class="c-line-stops__item">Vertrijk</li>
-                <li class="c-line-stops__item">Leuven</li>
-                <li class="c-line-stops__item">Brussels Airport-Zaventem</li>
-                <li class="c-line-stops__item">Brussel-Noord</li>
-                <li class="c-line-stops__item">Brussel-Centraal</li>
-                <li class="c-line-stops__item">Brussel-Zuid</li>
-                <li class="c-line-stops__item">Liedekerke</li>
-                <li class="c-line-stops__item">Denderleeuw</li>
-                <li class="c-line-stops__item">Erembodegem</li>
-                <li class="c-line-stops__item">Aalst</li>
-                <li class="c-line-stops__item">Lede</li>
-                <li class="c-line-stops__item">Serskamp</li>
-                <li class="c-line-stops__item">Schellebelle</li>
-                <li class="c-line-stops__item">Wetteren</li>
-                <li class="c-line-stops__item">Gent-Sint-Pieters</li>
-            </ul>
-        </div>
-        <div></div>
-    </div>
+<section class="c-container c-container-results js-search-results">
 </section>
 <footer class="c-container c-footer">
     <p>

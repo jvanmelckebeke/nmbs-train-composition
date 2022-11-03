@@ -59,6 +59,9 @@ const htmlGenerateTrip = function (trip) {
                 if (!isTouristicPeriodElement.checked) {
                     return '';
                 }
+                if (isHolidayElement.checked) {
+                    return '';
+                }
                 break;
         }
 
@@ -93,17 +96,14 @@ const htmlGenerateTrip = function (trip) {
     const result = `
     <div class="c-trip">
         <div class="c-trip__header">
-            <div class="c-trip__days-active">Active on:
-                <ul class="c-trip-days-active">
-                    ${trip.days.map(htmlGenerateActiveDay).join('')}
-                </ul>
+            <span class="c-trip__accuracy">Accuracy: ${trip.accuracy}</span>
+            <div class="c-trip__days-active">
                 <ul class="c-line-stops">
                     ${htmlGenerateStop(trip.stops[0])}
                     ${htmlGenerateStop(inbetweenStopsText)}
                     ${htmlGenerateStop(trip.stops[trip.stops.length - 1])}
                 </ul>
             </div>
-        <span class="c-trip__accuracy">Accuracy: ${trip.accuracy}</span>
         </div>
         <div class="c-trip__body">
             ${trip.compositions.map(htmlGenerateComposition).join('')}
@@ -114,6 +114,12 @@ const htmlGenerateTrip = function (trip) {
 }
 
 const htmlShowLine = function (data) {
+    const updateResultClass = function () {
+        document.querySelector('.js-search-results').classList.toggle("c-container-results__active");
+        document.querySelector('.js-day').classList.toggle("c-container-day__active");
+        document.querySelector('.js-header').classList.toggle("c-container--header__active");
+        document.querySelector('.js-page').classList.toggle("c-page__active");
+    }
     const result = `
     <div class="c-result">
         <div class="c-result__header">
@@ -123,6 +129,7 @@ const htmlShowLine = function (data) {
     </div>
 </div>`;
     lineSearchResultsElement.innerHTML = result;
+    setTimeout(updateResultClass, 200);
 }
 
 const loadLine = function (line) {

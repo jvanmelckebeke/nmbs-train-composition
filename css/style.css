@@ -86,15 +86,18 @@ img {
 .c-page {
     height: 100vh;
     /*min-height: 100vh;*/
-    /*background-color: var(--page-background);*/
+    background-color: var(--page-background);
 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
     transition: height var(--default-transition);
-    row-gap: 1rem;
+}
+
+.c-page__active {
+    background-color: white;
 }
 
 
@@ -105,12 +108,27 @@ img {
 .c-container {
     flex-basis: 100%;
     width: 100%;
+
+    transition: all 0.3s ease-out;
 }
 
 .c-container--header {
-    margin-top: 0;
-    align-self: flex-start;
+    align-self: stretch;
     background-color: var(--page-background);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    /*height: calc(100vh - 2.5rem - 1.75rem);*/
+    transition: all 0.3s ease-out;
+}
+.c-container--header__active {
+    align-self: flex-start;
+    height: fit-content;
+}
+
+.c-container-search__item {
+    align-self: flex-end;
 }
 
 /*----------------------------------------------
@@ -120,6 +138,13 @@ img {
 .c-container--search {
     /*height: 10vh;*/
     padding-bottom: 1rem;
+    /*align-self: stretch;*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-grow: 1;
+    transition: height var(--default-transition);
 }
 
 
@@ -127,8 +152,13 @@ img {
 ## Container - Day
 ----------------------------------------------*/
 
-.c-container--day {
-    align-self: start;
+.c-container-day {
+    opacity: 0;
+}
+
+.c-container-day__active {
+    align-self: flex-end;
+    opacity: 1;
 }
 
 
@@ -136,9 +166,18 @@ img {
 ## Container - Results
 ----------------------------------------------*/
 
-.c-container--results {
+.c-container-results {
+    /*background-color: var(--page-background);*/
+    margin: 0;
+    opacity: 0;
+}
+
+.c-container-results__active {
+    /*flex-basis: 100%;*/
     background-color: white;
-    padding: 1rem 0;
+    margin-bottom: 1rem;
+    opacity: 1;
+    /*background-color: hotpink;*/
 }
 
 /*----------------------------------------------
@@ -337,12 +376,16 @@ img {
     transition: all var(--default-transition-timing) ease-in, background-color var(--default-transition-timing) ease-out;
 }
 
+.c-button:focus {
+    outline: var(--accent-color) 2px solid;
+}
+
 .c-button:hover {
     background-color: hotpink;
 }
 
-.c-button:focus {
-    background-color: var(--accent-color);
+.c-button:active {
+    background-color: hotpink;
 }
 
 .c-button--search {
@@ -364,7 +407,7 @@ img {
 /*----------------------------------------------
 # Date section
 ----------------------------------------------*/
-.c-container--day {
+.c-container-day {
     background-color: var(--page-background-alternative);
     padding: 1rem 0;
 }
@@ -465,14 +508,15 @@ img {
 .c-line-stops {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
     padding: 0.5rem 0;
 }
 
 .c-line-stops__item {
-    padding: 0.25rem 0.5rem;
+    --horizontal-padding: 3rem;
+    padding: 0 var(--horizontal-padding);
     /*margin: 0 0.5rem 0.5rem 0;*/
 }
 
@@ -484,6 +528,7 @@ img {
     content: '\2022';
     display: block;
     width: 1ch;
+    height: 1rem;
     font-size: 3rem;
     color: var(--color-secondary);
     filter: drop-shadow(5px 0px 0px var(--color-pallette-3)) drop-shadow(5px 0px 0px var(--color-primary));
@@ -495,14 +540,15 @@ img {
     top: 2.5rem;
     content: '';
     display: block;
-    width: calc(100% + 2 * 0.5rem);
+    width: calc(100% + 2 * var(--horizontal-padding));
+    left: calc(0 - var(--horizontal-padding));
     height: 1px;
     background-color: var(--color-primary);
-    margin-top: -0.75rem;
+    margin-top: -0.25rem;
 }
 
 .c-line-stops__item:first-child:before {
-    width: calc(50% + 1rem);
+    width: calc(50% + 2 * var(--horizontal-padding));
     left: 50%;
 }
 
@@ -555,4 +601,6 @@ img {
 
 .u-invisible {
     display: none;
+    opacity: 0;
+    visibility: collapse;
 }
