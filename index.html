@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/normalise.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <script src="js/main.js"></script>
 </head>
 <body class="c-page">
 <section class="c-container c-container--header">
@@ -25,7 +25,7 @@
             <div class="c-form-control c-form-control--search">
                 <label class="c-label c-label--search">
                     <span class="c-label-text c-label-search--text">Search line</span>
-                    <input class="c-input c-input--search" type="number" name="train" min="0"
+                    <input class="c-input c-input--search js-line-search" type="number" name="train" min="0"
                            placeholder="Train number">
                 </label>
                 <button class="c-button c-button--search" type="submit">Search</button>
@@ -37,7 +37,7 @@
             <div class="c-form-control c-form-control--day">
                 <label class="c-label c-label--day">
                     <span class="c-label-text c-label-day--text">Day</span>
-                    <select class="c-input c-select--day" name="day">
+                    <select class="c-input c-select--day js-day-select" name="day">
                         <option value="monday">Monday</option>
                         <option value="tuesday">Tuesday</option>
                         <option value="wednesday">Wednesday</option>
@@ -52,14 +52,14 @@
                 </label>
             </div>
             <div class="c-form-control c-form-control--holiday">
-                <input class="c-option c-option--hidden o-hide-accessible" type="checkbox" id="toggle-holiday">
+                <input class="c-option c-option--hidden js-holiday o-hide-accessible" type="checkbox" id="toggle-holiday">
                 <label class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted" for="toggle-holiday">
                     <span class="c-custom-toggle__fake-input"></span>
                     Holiday
                 </label>
             </div>
             <div class="c-form-control c-form-control--touristic-period">
-                <input class="c-option c-option--hidden o-hide-accessible" type="checkbox" id="toggle-touristic-period">
+                <input class="c-option c-option--hidden js-touristic-period o-hide-accessible" type="checkbox" id="toggle-touristic-period">
                 <label class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted"
                        for="toggle-touristic-period">
                     <span class="c-custom-toggle__fake-input"></span>
@@ -70,42 +70,37 @@
     </div>
 </section>
 <section class="c-container c-container--results js-search-results">
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus varius leo eu quam congue, sit amet viverra
-        nulla sodales. Mauris ex felis, placerat sed metus a, pretium faucibus odio. Suspendisse non congue sem, at
-        interdum mi. Fusce dolor lorem, commodo sit amet nulla quis, fermentum lacinia velit. Aliquam nec aliquet eros.
-        Quisque tristique commodo ornare. Maecenas feugiat mauris id mauris hendrerit mollis. Nunc sed viverra leo, a
-        pharetra ipsum. Vestibulum luctus dapibus tincidunt. Donec elementum venenatis dolor sit amet fringilla.
-
-        Mauris rutrum metus orci, in imperdiet eros venenatis pellentesque. Nam et metus diam. Suspendisse diam nisl,
-        pulvinar in accumsan sit amet, facilisis vitae ex. Maecenas vitae mattis lorem, non aliquet magna. Morbi rhoncus
-        leo eget lectus dapibus varius. Suspendisse potenti. In vitae purus enim. Ut ac mattis lacus. In posuere magna
-        ut tellus laoreet, eu varius lacus lacinia. Nam ultricies libero eu eros eleifend egestas.
-
-        Cras semper ex vitae efficitur semper. Vestibulum ut ornare neque. Curabitur scelerisque purus justo, sodales
-        tincidunt felis fringilla et. Curabitur tempus malesuada augue, non interdum sapien dictum et. Sed pharetra
-        finibus elit, vel volutpat nibh posuere nec. Proin tristique a enim hendrerit tristique. Sed tincidunt velit id
-        neque fringilla vulputate id eu lectus. Ut interdum elit eu fermentum euismod. Nulla ipsum libero, pretium non
-        semper non, ultrices sed sem. Vivamus tellus nibh, varius vitae semper quis, auctor id dui.
-
-        Integer faucibus nisi eget eros maximus laoreet. Proin in velit eget nisl gravida vulputate a id nibh. Donec
-        ultrices, leo viverra maximus ornare, nisi enim hendrerit elit, quis viverra quam augue et massa. Sed nec lacus
-        ac mi faucibus ultricies. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat, diam ac
-        aliquet vulputate, odio nisl posuere nisi, quis pellentesque risus nibh a odio. Suspendisse ut euismod ex. Proin
-        aliquet, dui et aliquam ultrices, ante tellus imperdiet massa, dignissim sodales sem nulla non mauris.
-        Vestibulum fermentum dolor tortor. Sed non enim eu magna sollicitudin rutrum et id dui. Fusce luctus tellus
-        libero, sit amet imperdiet urna egestas in. In consequat massa dui, sed accumsan sapien placerat vel. Duis sit
-        amet sollicitudin lectus. Nullam sed tempor dui.
-
-        Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin tristique a purus et tincidunt. Morbi quis
-        justo at odio mattis tempus. Sed convallis ipsum sem, vel cursus eros placerat eget. Nunc mollis, ligula non
-        blandit fringilla, turpis ex dignissim est, ac ultrices augue libero et massa. Sed vel euismod nulla. Sed
-        lobortis in erat a feugiat. Morbi felis metus, lacinia eget risus et, eleifend laoreet lacus. Cras placerat
-        tortor at risus laoreet, et rutrum massa accumsan. Fusce venenatis malesuada varius. Integer in ultrices erat.
-        Donec sed molestie nibh. Fusce egestas quis erat eu tempus. Donec rutrum ut lectus ornare iaculis. Nulla
-        faucibus, est eu luctus auctor, ipsum est cursus nisl, ut venenatis neque lectus eget eros. Maecenas eget
-        gravida velit.
-    </p>
+    <div class="c-result">
+        <div class="c-result__header">
+            <h1 class="c-line-title">IC 3639</h1>
+            <span>From A to B</span>
+        </div>
+        <div class="c-result__variant">
+            <h2>In general</h2>
+            <ul class="c-line-stops">
+                <li class="c-line-stops__item">Landen</li>
+                <li class="c-line-stops__item">Neerwinden</li>
+                <li class="c-line-stops__item">Ezemaal</li>
+                <li class="c-line-stops__item">Tienen</li>
+                <li class="c-line-stops__item">Vertrijk</li>
+                <li class="c-line-stops__item">Leuven</li>
+                <li class="c-line-stops__item">Brussels Airport-Zaventem</li>
+                <li class="c-line-stops__item">Brussel-Noord</li>
+                <li class="c-line-stops__item">Brussel-Centraal</li>
+                <li class="c-line-stops__item">Brussel-Zuid</li>
+                <li class="c-line-stops__item">Liedekerke</li>
+                <li class="c-line-stops__item">Denderleeuw</li>
+                <li class="c-line-stops__item">Erembodegem</li>
+                <li class="c-line-stops__item">Aalst</li>
+                <li class="c-line-stops__item">Lede</li>
+                <li class="c-line-stops__item">Serskamp</li>
+                <li class="c-line-stops__item">Schellebelle</li>
+                <li class="c-line-stops__item">Wetteren</li>
+                <li class="c-line-stops__item">Gent-Sint-Pieters</li>
+            </ul>
+        </div>
+        <div></div>
+    </div>
 </section>
 <footer class="c-container c-footer">
     <p>
@@ -120,5 +115,4 @@
     </p>
 </footer>
 </body>
-<script src="js/main.js"></script>
 </html>
