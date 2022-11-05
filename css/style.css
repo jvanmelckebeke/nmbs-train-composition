@@ -122,6 +122,7 @@ img {
     /*height: calc(100vh - 2.5rem - 1.75rem);*/
     transition: all 0.3s ease-out;
 }
+
 .c-container--header__active {
     align-self: flex-start;
     height: fit-content;
@@ -594,6 +595,87 @@ img {
     align-self: center;
     justify-self: center;
 }
+
+
+/*----------------------------------------------
+# Random components
+----------------------------------------------*/
+
+.c-line-title {
+    margin: 1rem auto;
+    width: fit-content;
+}
+
+.c-trip__header {
+    position: relative;
+}
+
+.c-trip-composition {
+    width: 100%;
+}
+
+.c-trip-active-condition {
+    margin: 0.25rem auto;
+    width: fit-content;
+}
+
+/*----------------------------------------------
+# Accuracy gauge
+----------------------------------------------*/
+
+.c-trip__accuracy {
+    margin-top: 1rem;
+    max-height: 7rem;
+    position: relative;
+
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+
+    --gauge-max-width: 13rem;
+    --gauge-max-height: 6.75rem;
+}
+
+.c-trip__accuracy-title {
+    width: fit-content;
+    margin: 0 auto;
+    /*position:absolute;*/
+    /*top: -2.25rem;*/
+}
+
+.c-trip__accuracy-gauge {
+    max-height: var(--gauge-max-height);
+    max-width: var(--gauge-max-width);
+    /*margin-bottom: -2rem;*/
+}
+
+.c-trip__accuracy-text {
+    position: absolute;
+    bottom: .5rem;
+    left: calc(var(--gauge-max-width)/ 2 - 1.5ch);
+    /*left: 0;*/
+    /*right: 0;*/
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: black;
+    width: fit-content;
+}
+
+.c-trip__accuracy-text:after {
+    content: "%";
+}
+
+/*
+.c-trip__accuracy::after {
+    content: 'AAAAAAAAAA';
+    background-image: radial-gradient(red 0, red 50%, transparent 50%, transparent 100%), radial-gradient(green 0, green 50%, transparent 50%, transparent 100%), radial-gradient(white 0, white 60%, transparent 60%), conic-gradient(orange 0, green 130deg, white 130deg, white 230deg, red 230deg, orange 360deg);
+    background-size: 11% 11%, 11% 11%, 100% 100%, 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 9.2% 82.3%, 90.8% 82.3%, center center, center center;
+}
+*/
+
 
 /*----------------------------------------------
 # Utilities
