@@ -2,10 +2,10 @@ let lineSearchElement;
 let lineFormElement;
 let lineSearchResultsElement;
 let daySelectElement;
-let isHolidayElement;
-let isTouristicPeriodElement;
+let periodSelectElement;
 
 let activeLine = null;
+let activeTrip = null;
 
 const API_URL = 'http://composition.jarivanmelckebeke.be';
 
@@ -31,6 +31,31 @@ const checkShouldShowTrip = function (trip) {
     }
     // todo: check if holiday and touristic period
     return true;
+}
+
+const updatePeriodSelect = function (line) {
+
+}
+
+//#endregion
+
+//#region event listeners
+const handleFormSearchSubmit = function (event) {
+    event.preventDefault();
+    const lineSearchValue = lineSearchElement.value;
+    loadLine(lineSearchValue);
+}
+
+const onDaySelect = function (event) {
+    if (activeLine) {
+        htmlShowLine(activeLine);
+    }
+}
+
+const onPeriodSelect = function (event) {
+    if (activeLine) {
+        htmlShowLine(activeLine);
+    }
 }
 
 //#endregion
@@ -59,9 +84,13 @@ const htmlShowLine = function (line) {
 
 const htmlSetDaySelect = function () {
     // get day of the week lowercase
-    const day = new Date().toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
+    const day = new Date().toLocaleString('en-us', {weekday: 'long'}).toLowerCase();
     const daySelect = document.querySelector('.js-day-select');
     daySelect.value = day;
+
+    // also add day event listener
+    daySelect.addEventListener('change', onDaySelect);
+    periodSelectElement.addEventListener('change', onPeriodSelect);
 }
 
 const htmlGenerateAccuracyCharts = function () {
@@ -105,16 +134,21 @@ const htmlGenerateLineHeader = function (data) {
 
 const htmlGenerateWagon = function (wagon) {
     return `<div class="c-wagons-table__item">
-                <img class="c-wagon__image" src="${API_URL}${wagon.img}" 
+                <img class="c-wagon__info c-wagon__image" src="${API_URL}${wagon.img}" 
                                             alt="${wagon.identifier} produced by ${wagon.company}">
-                <span class="c-wagon__from">${wagon.endpoints.start}</span>
-                <span class="c-wagon__to">${wagon.endpoints.end}</span>
+                <span class="c-wagon__info c-wagon__name">${wagon.name}</span>
+                <span class="c-wagon__info c-wagon__from">${wagon.endpoints.start}</span>
+                <span class="c-wagon__info c-wagon__to">${wagon.endpoints.end}</span>
             </div>`;
 }
 
 const htmlGenerateComposition = function (composition) {
+    let condition = composition.condition;
+    if (condition === 'General') {
+        condition = 'Normal Service';
+    }
     return `<div class="c-trip__composition">
-                <h2 class="c-trip__active-condition">${composition.condition}</h2>
+                <h2 class="c-trip__active-condition">${condition}</h2>
                 <div class="c-wagons-table">
                     ${composition.composition.map(htmlGenerateWagon).join('')}
                 </div>
@@ -129,6 +163,7 @@ const htmlGenerateStop = function (stop) {
 
 
 const htmlGenerateTrip = function (trip) {
+    activeTrip = trip;
     const amountOfStops = trip.stops.length;
     let stopHtml = htmlGenerateStop(trip.stops[0]);
     if (amountOfStops > 2) {
@@ -136,6 +171,19 @@ const htmlGenerateTrip = function (trip) {
         stopHtml += htmlGenerateStop(inbetweenStopsText);
     }
     stopHtml += htmlGenerateStop(trip.stops[amountOfStops - 1]);
+
+    let compositionHtml = "";
+    for (const composition of trip.compositions) {
+        let selectedPeriod = periodSelectElement.value;
+
+        if (selectedPeriod !== 'all') {
+            if (composition.condition !== selectedPeriod) {
+                console.log(composition.condition, selectedPeriod);
+                continue;
+            }
+        }
+        compositionHtml += htmlGenerateComposition(composition);
+    }
 
     return `
     <div class="c-trip">
@@ -150,7 +198,7 @@ const htmlGenerateTrip = function (trip) {
             </div>
         </div>
         <div class="c-trip__body">
-            ${trip.compositions.map(htmlGenerateComposition).join('')}
+            ${compositionHtml}
         </div>
     </div>`;
 }
@@ -201,11 +249,6 @@ const hideResults = function () {
 }
 //#endregion
 
-const handleFormSearchSubmit = function (event) {
-    event.preventDefault();
-    const lineSearchValue = lineSearchElement.value;
-    loadLine(lineSearchValue);
-}
 
 const loadLine = function (line) {
     hideResults();
@@ -215,9 +258,8 @@ const loadLine = function (line) {
         .then(data => {
             console.log(data);
             htmlShowLine(data);
-            activeLine = data;
+            setTimeout(activateResults, 100);
         });
-    activateResults();
 }
 
 
@@ -228,8 +270,8 @@ document.addEventListener('DOMContentLoaded', function () {
     lineFormElement = document.querySelector(".js-form-line");
     lineSearchResultsElement = document.querySelector(".js-search-results");
     daySelectElement = document.querySelector(".js-day-select");
-    isHolidayElement = document.querySelector(".js-holiday");
-    isTouristicPeriodElement = document.querySelector(".js-touristic-period");
+    periodSelectElement = document.querySelector(".js-period-select");
 
     lineFormElement.addEventListener('submit', handleFormSearchSubmit);
+
 });

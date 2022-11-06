@@ -18,7 +18,7 @@
     --accent-color: #45E698;
     --accent-color-2: #3DB6F2;
 
-    --default-transition-timing: 0.25s;
+    --default-transition-timing: 0.2s;
     --default-transition-timing-function: ease;
     --default-transition: var(--default-transition-timing) var(--default-transition-timing-function);
 }
@@ -116,6 +116,7 @@ img {
 .c-container--dead {
     display: none;
 }
+
 /*
 .c-container--alive {
     display: block;
@@ -375,7 +376,7 @@ img {
     font-size: 1.25rem;
     font-weight: 600;
     outline: none;
-    transition: all var(--default-transition-timing) ease-in, background-color var(--default-transition-timing) ease-out;
+    transition: all var(--default-transition-timing) ease-in, background-color var(--default-transition-timing) ease-in;
 }
 
 .c-button:focus {
@@ -586,26 +587,29 @@ img {
 
 .c-wagons-table__item {
     display: grid;
-    grid-template-columns: 3fr 2fr 2fr;
+    grid-template-columns: 3fr repeat(3, 2fr);
 
+}
+
+.c-wagon__info {
+    justify-self: center;
+    align-self: center;
 }
 
 .c-wagon__image {
     grid-column: 1;
-    justify-self: center;
+}
 
+.c-wagon__name {
+    grid-column: 2;
 }
 
 .c-wagon__from {
-    grid-column: 2;
-    align-self: center;
-    justify-self: center;
+    grid-column: 3;
 }
 
 .c-wagon__to {
-    grid-column: 3;
-    align-self: center;
-    justify-self: center;
+    grid-column: 4;
 }
 
 
@@ -629,6 +633,10 @@ img {
 
 .c-trip__composition {
     width: 100%;
+}
+
+.c-trip__composition + .c-trip__composition {
+    margin-top: 1rem;
 }
 
 .c-trip__active-condition {
@@ -699,16 +707,16 @@ img {
 .c-warning {
     font-weight: bold;
 }
+
 .c-warning__icon {
     height: 0.9rem;
     padding-bottom: 0;
     padding-top: 0;
-/*fill: var(--color-pallette-2);*/
-margin-right: 0.25rem;
+    /*fill: var(--color-pallette-2);*/
+    margin-right: 0.25rem;
     margin-bottom: 0;
 
 }
-
 
 
 /*----------------------------------------------
