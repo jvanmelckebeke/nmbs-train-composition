@@ -168,9 +168,9 @@ const htmlGenerateWagon = function (wagon) {
     return `<div class="c-wagons-table__item">
                 <img class="c-wagon__info c-wagon__image" src="${API_URL}${wagon.img}" 
                                             alt="${wagon.identifier} produced by ${wagon.company}">
-                <span class="c-wagon__info c-wagon__name">${wagon.name}</span>
-                <span class="c-wagon__info c-wagon__from">${wagon.endpoints.start}</span>
-                <span class="c-wagon__info c-wagon__to">${wagon.endpoints.end}</span>
+                <span class="c-wagon__info c-wagon__text c-wagon__name">${wagon.name}</span>
+                <span class="c-wagon__info c-wagon__text c-wagon__from">${wagon.endpoints.start}</span>
+                <span class="c-wagon__info c-wagon__text c-wagon__to">${wagon.endpoints.end}</span>
             </div>`;
 }
 

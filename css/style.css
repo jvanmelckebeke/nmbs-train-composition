@@ -1,4 +1,17 @@
+/*
+FOR REFERENCE USE:
+
+tiny screens: 320px
+smaller screens: 480px
+small screens: 576px
+medium screens: 768px
+large screens: 1024px
+larger screens: 1280px
+
+ */
+
 :root {
+
     --color-pallette-1: #008FF5;
     --color-pallette-2: #35524a;
     --color-pallette-3: #a2e8dd;
@@ -168,7 +181,7 @@ img {
 /*----------------------------------------------
 ## Container - Day
 ----------------------------------------------*/
-.c-container__day {
+.c-container__period-select {
     background-color: var(--page-background-alternative);
     padding: 1rem 0;
     align-self: flex-end;
@@ -252,6 +265,10 @@ img {
     margin: 0 0.5rem;
 }
 
+.c-form-control + .c-form-control {
+    margin-top: 0.25rem;
+}
+
 .c-form-control__search {
     display: block;
     width: 90vw;
@@ -310,6 +327,7 @@ img {
 
 .c-label__text {
     margin: 0 0.5rem;
+    align-self: center;
 }
 
 /*----------------------------------------------
@@ -376,11 +394,16 @@ img {
     font-size: 1.25rem;
     font-weight: 600;
     outline: none;
-    transition: all var(--default-transition-timing) ease-in, background-color var(--default-transition-timing) ease-in;
+    transition: all var(--default-transition-timing) ease-in,
+    background-color var(--default-transition-timing) ease-in;
 }
 
 .c-button:focus {
     outline: var(--accent-color) 2px solid;
+}
+
+.c-input:focus {
+    outline: aqua 2px solid !important;
 }
 
 .c-button:hover {
@@ -408,14 +431,14 @@ img {
 }
 
 /*----------------------------------------------
-# Date section
+# Period select section
 ----------------------------------------------*/
-.c-container__day {
+.c-container__period-select {
     background-color: var(--page-background-alternative);
     padding: 1rem 0;
 }
 
-.c-form__day {
+.c-form__period-select {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -501,8 +524,8 @@ img {
     background-color: #F5F6FA;
 
     padding: 0.25rem 0.5rem;
-
 }
+
 
 .c-select__day {
     width: 14ch;
@@ -518,6 +541,7 @@ img {
 
 .c-line-stops {
     /*display: grid;*/
+    justify-self: center;
     justify-content: center;
     align-items: center;
     padding: 0.5rem 0;
@@ -582,13 +606,20 @@ img {
 .c-wagons-table {
     /*display: grid;*/
     /*grid-template-columns: 1fr;*/
+    margin: 0 .5rem;
 
 }
 
 .c-wagons-table__item {
     display: grid;
-    grid-template-columns: 3fr repeat(3, 2fr);
-
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: minmax(3rem, 1fr) 1fr;
+    grid-template-areas:
+            "wagon-image wagon-image wagon-image"
+            "wagon-name wagon-from wagon-to";
+    /*column-gap: 0.25rem;*/
+    align-items: center;
+    justify-items: center;
 }
 
 .c-wagon__info {
@@ -597,21 +628,48 @@ img {
 }
 
 .c-wagon__image {
-    grid-column: 1;
+    grid-area: wagon-image;
 }
 
 .c-wagon__name {
-    grid-column: 2;
+    grid-area: wagon-name;
+    /*grid-column-start: 2;*/
+    /*grid-column-end: 4;*/
 }
 
 .c-wagon__from {
-    grid-column: 3;
+    grid-area: wagon-from;
 }
 
 .c-wagon__to {
-    grid-column: 4;
+    grid-area: wagon-to;
 }
 
+
+@media (min-width: 480px) {
+
+    .c-wagons-table__item {
+        grid-template-columns: 3fr repeat(2, 2fr);
+        grid-template-rows: minmax(3rem, 1fr) 1.25rem;
+        column-gap: 0.25rem;
+        grid-template-areas:
+            "wagon-image wagon-from wagon-to"
+            "wagon-name wagon-from wagon-to";
+    }
+
+    .c-wagon__text {
+        /*margin-top: 1rem;*/
+    }
+}
+
+@media (min-width: 594px) {
+    .c-wagons-table__item {
+        grid-template-columns: 3fr 1fr repeat(2, 2fr);
+        grid-template-rows: 1fr;
+        /*column-gap: 0.25rem;*/
+        grid-template-areas: "wagon-image wagon-name wagon-from wagon-to";
+    }
+}
 
 /*----------------------------------------------
 # Random components
@@ -625,10 +683,16 @@ img {
 .c-trip__header {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 3rem;
+    grid-template-columns: 1fr;
     align-items: center;
     justify-content: center;
+}
+
+@media (min-width: 480px) {
+    .c-trip__header {
+        grid-template-columns: 1fr 1fr;
+        grid-row-gap: 3rem;
+    }
 }
 
 .c-trip__composition {
