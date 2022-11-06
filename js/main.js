@@ -11,7 +11,6 @@ const API_URL = 'http://composition.jarivanmelckebeke.be';
 
 const handleFormSearchSubmit = function (event) {
     event.preventDefault();
-    console.log('Form submitted');
     const lineSearchValue = lineSearchElement.value;
     loadLine(lineSearchValue);
 }
@@ -64,12 +63,6 @@ const htmlGenerateTrip = function (trip) {
     if (activeDays.indexOf(daySelectElement.value) === -1) {
         return '';
     }
-
-    const htmlGenerateActiveDay = function (day) {
-
-        return `<li class="c-trip-days-active__item">${day}</li>`;
-    }
-
     const htmlGenerateComposition = function (composition) {
         const htmlGenerateWagon = function (wagon) {
             return `
@@ -80,31 +73,9 @@ const htmlGenerateTrip = function (trip) {
                 </div>`;
         }
 
-        switch (composition.condition) {
-            case 'General':
-                if (isHolidayElement.checked || isTouristicPeriodElement.checked) {
-                    return '';
-                }
-                break;
-            case 'During the period of annual holidays':
-                if (!isHolidayElement.checked) {
-                    return '';
-                }
-                break;
-            case 'During the touristic period':
-                if (!isTouristicPeriodElement.checked) {
-                    return '';
-                }
-                if (isHolidayElement.checked) {
-                    return '';
-                }
-                break;
-        }
-
-
         return `
-            <div class="c-trip-composition">
-                <h2 class="c-trip-active-condition">${composition.condition}</h2>
+            <div class="c-trip__composition">
+                <h2 class="c-trip__active-condition">${composition.condition}</h2>
                     <div class="c-wagons-table">
                         ${composition.composition.map(htmlGenerateWagon).join('')}
                     </div>
@@ -128,21 +99,21 @@ const htmlGenerateTrip = function (trip) {
     const inbetweenStopsText = `${amountOfStops - 2} stops`;
     let inbetweenHtml = "";
     if (amountOfStops > 2) {
-        inbetweenHtml = `<span class="c-trip__inbetween">${inbetweenStopsText}</span>`;
+        inbetweenHtml = htmlGenerateStop(inbetweenStopsText);
     }
     const result = `
     <div class="c-trip">
         <div class="c-trip__header">
+            <ul class="c-line-stops">
+                ${htmlGenerateStop(trip.stops[0])}
+                ${inbetweenHtml}
+                ${htmlGenerateStop(trip.stops[trip.stops.length - 1])}
+            </ul>
             <div class="c-trip__accuracy js-accuracy">
                 <h2 class="c-trip__accuracy-title">Accuracy</h2>
                 <canvas class="c-trip__accuracy-gauge js-gauge" data-accuracy="${trip.accuracy}"></canvas>
                 <div class="c-trip__accuracy-text js-helpertext">${trip.accuracy}</div>
             </div>
-            <ul class="c-line-stops">
-                ${htmlGenerateStop(trip.stops[0])}
-                ${htmlGenerateStop(inbetweenStopsText)}
-                ${htmlGenerateStop(trip.stops[trip.stops.length - 1])}
-            </ul>
         </div>
         <div class="c-trip__body">
             ${trip.compositions.map(htmlGenerateComposition).join('')}
@@ -163,18 +134,49 @@ const ensureClassInactive = function (querySelector, cls) {
     }
 }
 
-const activateResults = function () {
-    ensureClassActive('.js-search-results', "c-container-results__active");
-    ensureClassActive('.js-day', "c-container-day__active");
-    ensureClassActive('.js-header', "c-container--header__active");
-    ensureClassActive('.js-page', "c-page__active");
+const activateContainer = function (querySelector) {
+    const element = document.querySelector(querySelector);
+    if (!element) {
+        return;
+    }
+    if (element.classList.contains('c-container--dead')) {
+        if (!element.classList.contains('c-container--hidden')) {
+            element.classList.add('c-container--hidden');
+        }
+        element.classList.remove('c-container--dead');
+        element.classList.add('c-container--alive');
+        setTimeout(function () {
+            element.classList.remove('c-container--hidden');
+        }, 100); // this gives time for the display block to load into html
+    }
+    if (element.classList.contains('c-container--hidden')) {
+        element.classList.remove('c-container--hidden');
+    }
 }
 
-const deactivateResults = function () {
-    ensureClassInactive('.js-search-results', "c-container-results__active");
-    ensureClassInactive('.js-day', "c-container-day__active");
-    ensureClassInactive('.js-header', "c-container--header__active");
-    ensureClassInactive('.js-page', "c-page__active");
+const deactivateContainer = function (querySelector) {
+    const element = document.querySelector(querySelector);
+    if (!element) {
+        return;
+    }
+    if (element.classList.contains('c-container--alive')) {
+        element.classList.add('c-container--hidden');
+    }
+}
+
+const activateResults = function () {
+    activateContainer('.js-search-results');
+    activateContainer('.js-day');
+    activateContainer('.js-header');
+    activateContainer('.js-page');
+}
+
+const hideResults = function () {
+    deactivateContainer('.js-search-results');
+    // deactivateContainer('.js-day');
+    // don't deactivate day, because it's not needed
+    deactivateContainer('.js-header');
+    deactivateContainer('.js-page');
 }
 
 const htmlShowLine = function (data) {
@@ -191,8 +193,7 @@ const htmlShowLine = function (data) {
 }
 
 const loadLine = function (line) {
-    console.log('Loading line', line);
-    deactivateResults();
+    hideResults();
     // example 3639
     fetch(`${API_URL}/line/${line}`)
         .then(response => response.json())
@@ -201,12 +202,13 @@ const loadLine = function (line) {
             console.log(data);
             htmlShowLine(data);
         });
-    setTimeout(activateResults, 200); // todo: find a way to wait for the fetch and innerHTML to finish
+    activateResults();
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM loaded');
+
     lineSearchElement = document.querySelector(".js-line-search");
     lineFormElement = document.querySelector(".js-form-line");
     lineSearchResultsElement = document.querySelector(".js-search-results");
