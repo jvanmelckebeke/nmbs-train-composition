@@ -161,7 +161,7 @@ const htmlGenerateAccuracyCharts = function () {
 }
 
 const htmlGenerateLineHeader = function (data) {
-    return `<h1 class="c-line-title">${data.identifier}</h1>`;
+    return `<h1 class="c-line-title js-line-title">${data.identifier}</h1>`;
 }
 
 const htmlGenerateWagon = function (wagon) {
