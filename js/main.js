@@ -29,15 +29,16 @@ const checkShouldShowTrip = function (trip) {
     if (activeDays.indexOf(daySelectElement.value) === -1) {
         return false;
     }
+    // todo: check if holiday and touristic period
     return true;
 }
 
 //#endregion
 
 //#region html generation
-const htmlShowLine = function (data) {
+const htmlShowLine = function (line) {
     let tripHtml = "";
-    for (const trip of data.trips) {
+    for (const trip of line.trips) {
         if (checkShouldShowTrip(trip)) {
             tripHtml += htmlGenerateTrip(trip);
         }
@@ -45,11 +46,22 @@ const htmlShowLine = function (data) {
     lineSearchResultsElement.innerHTML = `
     <div class="c-result">
         <div class="c-result__header">
-            ${htmlGenerateLineHeader(data)}
+            ${htmlGenerateLineHeader(line)}
         </div>
         ${tripHtml}
     </div>`;
     htmlGenerateAccuracyCharts();
+    if (!activeLine) {
+        htmlSetDaySelect();
+    }
+    activeLine = line;
+}
+
+const htmlSetDaySelect = function () {
+    // get day of the week lowercase
+    const day = new Date().toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
+    const daySelect = document.querySelector('.js-day-select');
+    daySelect.value = day;
 }
 
 const htmlGenerateAccuracyCharts = function () {
@@ -201,9 +213,9 @@ const loadLine = function (line) {
     fetch(`${API_URL}/line/${line}`)
         .then(response => response.json())
         .then(data => {
-            activeLine = data;
             console.log(data);
             htmlShowLine(data);
+            activeLine = data;
         });
     activateResults();
 }
