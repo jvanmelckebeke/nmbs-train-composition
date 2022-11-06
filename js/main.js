@@ -33,10 +33,6 @@ const checkShouldShowTrip = function (trip) {
     return true;
 }
 
-const updatePeriodSelect = function (line) {
-
-}
-
 //#endregion
 
 //#region event listeners
@@ -58,10 +54,46 @@ const onPeriodSelect = function (event) {
     }
 }
 
+const checkCompatiblePeriods = function (trip) {
+    const compatiblePeriods = ["all"];
+    console.log(trip);
+    for (const composition of trip.compositions) {
+        compatiblePeriods.push(composition.condition);
+    }
+
+    const periodSelect = document.querySelector('.js-period-select');
+    for (const option of periodSelect.options) {
+        option.disabled = compatiblePeriods.indexOf(option.value) === -1;
+    }
+
+    if (compatiblePeriods.indexOf(periodSelect.value) === -1) {
+        periodSelect.value = "all";
+    }
+}
+
+const checkCompatibleDays = function (line) {
+    const compatibleDays = [];
+    for (const trip of line.trips) {
+        for (const day of trip.days) {
+            compatibleDays.push(day.toLowerCase());
+        }
+    }
+
+    const daySelect = document.querySelector('.js-day-select');
+    for (const option of daySelect.options) {
+        option.disabled = compatibleDays.indexOf(option.value) === -1;
+    }
+
+    if (compatibleDays.indexOf(daySelect.value) === -1) {
+        daySelect.value = compatibleDays[0];
+    }
+}
+
 //#endregion
 
 //#region html generation
 const htmlShowLine = function (line) {
+    checkCompatibleDays(line);
     let tripHtml = "";
     for (const trip of line.trips) {
         if (checkShouldShowTrip(trip)) {
@@ -164,6 +196,7 @@ const htmlGenerateStop = function (stop) {
 
 const htmlGenerateTrip = function (trip) {
     activeTrip = trip;
+    checkCompatiblePeriods(trip);
     const amountOfStops = trip.stops.length;
     let stopHtml = htmlGenerateStop(trip.stops[0]);
     if (amountOfStops > 2) {
