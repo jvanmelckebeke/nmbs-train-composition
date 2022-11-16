@@ -3,6 +3,7 @@ let lineFormElement;
 let lineSearchResultsElement;
 let daySelectElement;
 let periodSelectElement;
+let noSearchResultsElement;
 
 let activeLine = null;
 let activeTrip = null;
@@ -114,6 +115,13 @@ const htmlShowLine = function (line) {
     activeLine = line;
 }
 
+const htmlShowNoResults = function () {
+    deactivateContainer('.js-day');
+    deactivateContainer('.js-search-results');
+    activateContainer('.js-no-results');
+    lineSearchResultsElement.innerHTML = "";
+}
+
 const htmlSetDaySelect = function () {
     // get day of the week lowercase
     const day = new Date().toLocaleString('en-us', {weekday: 'long'}).toLowerCase();
@@ -140,14 +148,12 @@ const htmlGenerateAccuracyCharts = function () {
                 length: 0,              // Relative to gauge radius
                 strokeWidth: 0,         // The thickness
                 color: '#000000'        // Fill color
-            },
-            limitMax: false,            // If false, max value increases automatically if value > maxValue
+            }, limitMax: false,            // If false, max value increases automatically if value > maxValue
             limitMin: false,            // If true, the min value of the gauge will be fixed
             colorStart: '#58FCAD',      // original: #6F6EA0
             colorStop: '#32de8a',       // original: #C0C0DB
             strokeColor: '#eee',        // original: #EEEEEE
-            generateGradient: true,
-            highDpiSupport: true
+            generateGradient: true, highDpiSupport: true
         };
         const gauge = new Donut(target).setOptions(opts);
         gauge.setTextField(textTarget);
@@ -188,8 +194,7 @@ const htmlGenerateComposition = function (composition) {
 }
 const htmlGenerateStop = function (stop) {
     let stopName = normalizeStop(stop);
-    if (stopName)
-        return `<li class="c-line-stops__item">${stopName}</li>`
+    if (stopName) return `<li class="c-line-stops__item">${stopName}</li>`
     return '';
 }
 
@@ -285,14 +290,21 @@ const hideResults = function () {
 
 const loadLine = function (line) {
     hideResults();
+    console.log('loading');
     // example 3639
     fetch(`${API_URL}/line/${line}`)
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.json()).then(data => {
+        if (!data) {
+            // no results were found
+            console.log("no results")
+            htmlShowNoResults();
+        } else {
             console.log(data);
+            deactivateContainer('.js-no-results');
             htmlShowLine(data);
             setTimeout(activateResults, 100);
-        });
+        }
+    });
 }
 
 

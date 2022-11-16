@@ -31,13 +31,15 @@ larger screens: 1280px
     --accent-color: #45E698;
     --accent-color-2: #3DB6F2;
 
+    --focus-border-color: #4CC2FC;
+
     --default-transition-timing: 0.2s;
     --default-transition-timing-function: ease;
     --default-transition: var(--default-transition-timing) var(--default-transition-timing-function);
 }
 
 * {
-    /*transition: all 2s ease-in !important;*/
+    /*transition: all 1s ease-in !important;*/
 }
 
 html, body {
@@ -143,10 +145,14 @@ img {
 
 .c-container--alive {
     position: static;
+
 }
 
 .c-container--hidden {
     opacity: 0;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -159,7 +165,6 @@ img {
     justify-content: center;
     flex-shrink: 1;
     flex-grow: 1;
-    /*align-self: center;*/
 }
 
 .c-container-search__item {
@@ -198,6 +203,24 @@ img {
 
 .c-container__results {
     margin: 0 0 1rem;
+}
+
+/*----------------------------------------------
+## Container - Results
+----------------------------------------------*/
+
+.c-container__no-results {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 50vh;
+    flex-grow: 2;
+    align-self: stretch;
+    justify-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /*----------------------------------------------
@@ -290,7 +313,7 @@ img {
 }
 
 .c-input:focus {
-    outline: gray 2px solid;
+    outline: var(--focus-border-color) 2px solid;
 }
 
 .c-input__search {
@@ -309,7 +332,7 @@ img {
 .c-form-control:focus-within .c-input__search,
 .c-input__search:not(:placeholder-shown),
 .c-input__search:focus {
-    outline: none;
+    /*outline: none;*/
     position: relative;
     width: 90%;
     margin: 0 auto;
@@ -403,12 +426,10 @@ img {
 }
 
 .c-button:focus {
-    outline: var(--accent-color) 2px solid;
+    outline: var(--focus-border-color) 2px solid;
 }
 
-.c-input:focus {
-    outline: aqua 2px solid !important;
-}
+
 
 .c-button:hover {
     background-color: hotpink;
@@ -780,12 +801,21 @@ img {
     height: 0.9rem;
     padding-bottom: 0;
     padding-top: 0;
-    /*fill: var(--color-pallette-2);*/
     margin-right: 0.25rem;
     margin-bottom: 0;
 
 }
 
+/*----------------------------------------------
+# No results
+----------------------------------------------*/
+
+.c-text__no-results {
+    font-weight: 600;
+    font-size: 3rem;
+    text-transform: capitalize;
+    color: #999;
+}
 
 /*----------------------------------------------
 # Utilities
