@@ -18,9 +18,11 @@ jobs:
         uses: "./.github/sync-s3"
         with:
           deploy-bucket: "train.jarivanmelckebeke.be"
+          commit-hash: ${{ github.sha }}
 
       - name: Sync code with S3 preview bucket
         if: github.ref != 'refs/heads/main'
         uses: "./.github/sync-s3"
         with:
           deploy-bucket: "train-preview.jarivanmelckebeke.be"
+          commit-hash: ${{ github.sha }}

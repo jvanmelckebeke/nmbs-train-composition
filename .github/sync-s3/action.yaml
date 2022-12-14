@@ -7,6 +7,9 @@ inputs:
   deploy-bucket:
     description: "S3 bucket to deploy to"
     required: true
+  commit-hash:
+    description: "the commit hash"
+    required: true
 
 runs:
   using: "composite"
@@ -14,6 +17,7 @@ runs:
     - uses: actions/checkout@v2
     - name: sync s3 code with s3 bucket
       run: |
-        aws s3 sync . s3://${{ inputs.deploy-bucket }} --quiet --delete \
-        --exclude ".git/*" --exclude ".github/*" --exclude ".idea/*"
+        aws s3 sync . s3://${{ inputs.deploy-bucket }} --delete \
+        --exclude ".git/*" --exclude ".github/*" --exclude ".idea/*" \
+        --metadata commit=${{ inputs.commit-hash }}
       shell: bash
