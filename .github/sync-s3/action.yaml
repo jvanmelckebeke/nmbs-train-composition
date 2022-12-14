@@ -17,7 +17,7 @@ runs:
     - uses: actions/checkout@v2
     - name: sync s3 code with s3 bucket
       run: |
-        aws s3 sync . s3://${{ inputs.deploy-bucket }} --delete true \
+        aws s3 sync . s3://${{ inputs.deploy-bucket }}  \
         --exclude ".git/*" --exclude ".github/*" --exclude ".idea/*" \
-        --metadata commit=${{ inputs.commit-hash }}
+        --metadata commit=${{ inputs.commit-hash }} --delete
       shell: bash
