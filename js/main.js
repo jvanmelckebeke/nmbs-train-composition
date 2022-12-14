@@ -117,9 +117,11 @@ const htmlShowLine = function (line) {
 
 const htmlShowNoResults = function () {
     deactivateContainer('.js-day');
-    deactivateContainer('.js-search-results');
-    activateContainer('.js-no-results');
-    lineSearchResultsElement.innerHTML = "";
+    activateContainer('.js-search-results');
+    toggleClass('.js-search-results', 'c-container__results--empty', true);
+    lineSearchResultsElement.innerHTML = `<p class="c-text c-text__no-results">
+                                            No Lines Found
+                                           </p>`;
 }
 
 const htmlSetDaySelect = function () {
@@ -270,6 +272,18 @@ const deactivateContainer = function (querySelector) {
     }
     if (element.classList.contains('c-container--alive')) {
         element.classList.add('c-container--hidden');
+    }
+}
+
+const toggleClass = function (querySelector, className, shouldBeActive) {
+    const element = document.querySelector(querySelector);
+    if (!element || (element.classList.contains(className) === shouldBeActive)) {
+        return;
+    }
+    if (shouldBeActive && !element.classList.contains(className)) {
+        element.classList.add(className);
+    } else {
+        element.classList.remove(className);
     }
 }
 

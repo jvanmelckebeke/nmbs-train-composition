@@ -32,7 +32,7 @@ larger screens: 1280px
     --accent-color-2: #3DB6F2;
 
     --focus-border-color: #4CC2FC;
-
+    --outline-color: #4CC2FC;
     --default-transition-timing: 0.2s;
     --default-transition-timing-function: ease;
     --default-transition: var(--default-transition-timing) var(--default-transition-timing-function);
@@ -212,15 +212,11 @@ img {
     flex-grow: 1;
 }
 
-/*----------------------------------------------
-## Container - Results
-----------------------------------------------*/
-
-.c-container__no-results {
+.c-container__results--empty {
     text-align: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    height: 50vh;
+
     flex-grow: 2;
     align-self: stretch;
     justify-self: stretch;
@@ -337,7 +333,7 @@ img {
 }
 
 .c-input__search:focus {
-    outline: hotpink 2px solid;
+    outline: var(--outline-color) 3px solid;
 }
 
 .c-form-control:focus-within .c-input__search,
@@ -432,8 +428,7 @@ img {
     font-size: 1.25rem;
     font-weight: 600;
     outline: none;
-    transition: all var(--default-transition-timing) ease-in,
-    background-color var(--default-transition-timing) ease-in;
+    transition: all var(--default-transition-timing) ease-out;
 }
 
 .c-button:hover, .c-button:focus, .c-button:active {
@@ -830,6 +825,7 @@ img {
     font-size: 3rem;
     text-transform: capitalize;
     color: #999;
+
 }
 
 
