@@ -12,12 +12,6 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v2
-    - name: configure credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-west-1
     - name: sync s3 code with s3 bucket
       run: aws s3 sync . s3://${{ inputs.deploy-bucket }} --exclude ".git/*" --exclude ".github/*"
       shell: bash
