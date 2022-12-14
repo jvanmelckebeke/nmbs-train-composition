@@ -5,23 +5,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
 
       - name: Sync code with S3 main bucket
         if: github.ref == 'refs/heads/main'
-        uses: "./.github/actions/sync-with-s3.yaml"
+        uses: "./.github/actions/action.yaml"
         with:
           deploy-bucket: "train.jarivanmelckebeke.be"
 
       - name: Sync code with S3 preview bucket
         if: github.ref != 'refs/heads/main'
-        uses: "./.github/actions/sync-with-s3.yaml"
+        uses: "./.github/actions/action.yaml"
         with:
           deploy-bucket: "train-preview.jarivanmelckebeke.be"
