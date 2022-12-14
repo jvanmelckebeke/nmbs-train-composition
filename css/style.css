@@ -336,6 +336,10 @@ img {
     -moz-appearance: textfield;
 }
 
+.c-input__search:focus {
+    outline: hotpink 2px solid;
+}
+
 .c-form-control:focus-within .c-input__search,
 .c-input__search:not(:placeholder-shown),
 .c-input__search:focus {
@@ -432,17 +436,21 @@ img {
     background-color var(--default-transition-timing) ease-in;
 }
 
+.c-button:hover, .c-button:focus, .c-button:active {
+    background-color: hotpink;
+}
+
 .c-button:focus {
     outline: var(--focus-border-color) 2px solid;
 }
 
 
 .c-button:hover {
-    background-color: hotpink;
+    /*background-color: hotpink;*/
 }
 
 .c-button:active {
-    background-color: hotpink;
+    /*background-color: hotpink;*/
 }
 
 .c-button__search {
@@ -682,7 +690,7 @@ img {
     .c-wagons-table__item {
         grid-template-columns: 3fr repeat(2, 2fr);
         grid-template-rows: minmax(3rem, 1fr) 1.25rem;
-        column-gap: 0.25rem;
+        grid-column-gap: 0.25rem;
         grid-template-areas:
             "wagon-image wagon-from wagon-to"
             "wagon-name wagon-from wagon-to";
@@ -698,7 +706,6 @@ img {
         margin-top: .25rem;
         grid-template-columns: 3fr 1fr repeat(2, 2fr);
         grid-template-rows: 1fr;
-        /*column-gap: 0.25rem;*/
         grid-template-areas: "wagon-image wagon-name wagon-from wagon-to";
     }
 }
@@ -729,6 +736,7 @@ img {
 
 .c-trip__composition {
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .c-trip__composition + .c-trip__composition {
@@ -822,6 +830,69 @@ img {
     font-size: 3rem;
     text-transform: capitalize;
     color: #999;
+}
+
+
+.c-loader {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+            "loader";
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+}
+
+.c-loader__svg {
+    grid-area: loader;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*margin: 0;*/
+    width: 88px;
+    height: 88px;
+    animation: rotate 5s linear infinite;
+    animation-direction: alternate;
+}
+
+.c-loader__icon {
+    /*transition: all 0.2s ease;*/
+    animation: animate 1.5s ease-in-out infinite;
+    animation-direction: alternate;
+    width: 88px;
+    height: 88px;
+    /*transform-origin: center center;*/
+}
+
+@keyframes animate {
+    0% {
+        stroke: #2E77E6;
+        stroke-dashoffset: 0;
+        stroke-dasharray: 30;
+
+    }
+    25% {
+        stroke: #4CC2FC;
+    }
+    50% {
+        stroke: #32de8a;
+    }
+    100% {
+        stroke: hotpink;
+        stroke-dashoffset: 100;
+        stroke-dasharray: 100;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /*----------------------------------------------
