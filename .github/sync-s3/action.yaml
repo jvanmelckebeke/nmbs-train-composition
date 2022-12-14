@@ -19,5 +19,5 @@ runs:
       run: |
         aws s3 sync . s3://${{ inputs.deploy-bucket }}  \
         --exclude ".git/*" --exclude ".github/*" --exclude ".idea/*" \
-        --metadata commit=${{ inputs.commit-hash }} --delete
+        --metadata Github-Commit=${{ inputs.commit-hash }} --delete
       shell: bash
