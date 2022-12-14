@@ -16,12 +16,12 @@ jobs:
 
       - name: Sync code with S3 main bucket
         if: github.ref == 'refs/heads/main'
-        uses: "./sync-with-s3"
+        uses: "./.github/actions/sync-with-s3.yaml"
         with:
           deploy-bucket: "train.jarivanmelckebeke.be"
 
       - name: Sync code with S3 preview bucket
         if: github.ref != 'refs/heads/main'
-        uses: "./sync-with-s3"
+        uses: "./.github/actions/sync-with-s3.yaml"
         with:
           deploy-bucket: "train-preview.jarivanmelckebeke.be"
