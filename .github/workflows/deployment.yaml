@@ -1,7 +1,7 @@
-name: sync-code-with-s3
+name: deploy-s3
 on: [push]
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
