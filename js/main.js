@@ -354,8 +354,8 @@ const htmlGenerateTrip = function (trip) {
  * @param {boolean} active - whether there is content in the results container
  */
 const setResultsActive = function (active) {
-
-    toggleClass('.js-header', '.c-container__header--search-active', active);
+    // console.log('setResultsActive', active);
+    toggleClass('.js-header', 'c-container__header--search-active', active);
 }
 
 /**
@@ -403,14 +403,21 @@ const deactivateContainer = function (querySelector) {
  * @param {boolean} shouldBeActive - whether the class should be active
  */
 const toggleClass = function (querySelector, className, shouldBeActive) {
+    if (className.startsWith('.')) {
+        console.warn("className should not start with a '.'");
+    }
+
     const element = document.querySelector(querySelector);
-    if (!element || (element.classList.contains(className) === shouldBeActive)) {
+    if (!element || (element.classList.contains(className) == shouldBeActive)) {
+        console.log("RETURNING")
         return;
     }
     if (shouldBeActive && !element.classList.contains(className)) {
         element.classList.add(className);
+        console.log("ADDING")
     } else {
         element.classList.remove(className);
+        console.log("REMOVING")
     }
 }
 
