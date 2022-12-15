@@ -102,6 +102,7 @@ const handleFormSearchSubmit = function (event) {
     event.preventDefault();
     const lineSearchValue = lineSearchElement.value;
     loadLine(lineSearchValue);
+    document.activeElement.blur();
 }
 //#endregion
 
@@ -456,7 +457,16 @@ const hideResults = function () {
     // deactivateContainer('.js-day');
     // don't deactivate day, because it's not needed
     deactivateContainer('.js-page');
-    setResultsActive(false);
+}
+
+
+const showLoading = function () {
+    setResultsActive(true);
+    activateContainer('.js-loading');
+}
+
+const hideLoading = function () {
+    deactivateContainer('.js-loading');
 }
 
 //#endregion
@@ -479,10 +489,7 @@ function checkShouldWarn(data) {
 }
 
 //#region event handlers
-const loadLine = function (line) {
-    hideResults();
-    console.log('loading');
-    // example 3639
+const fetchLine = function (line) {
     fetch(`${API_URL}/line/${line}`)
         .then(response => response.json()).then(data => {
         if (!data) {
@@ -496,7 +503,17 @@ const loadLine = function (line) {
             htmlShowLine(data);
             setTimeout(activateResults, 100);
         }
+        hideLoading();
     });
+}
+
+const loadLine = function (line) {
+    hideResults();
+    showLoading();
+    console.log('loading');
+
+    fetchLine(line);
+
 }
 
 /**
