@@ -1,10 +1,52 @@
+//#region custom type definitions
+
+/**
+ * @typedef {Object} EndStop
+ * @property {string} place - the name of the stop
+ * @property {string} time - the time the trip arrives at the stop (HH:MM)
+ *
+ * @typedef {Object} EndPointDefinition - the definition of an endpoint of a trip
+ * @property {string} start - the name of the start stop
+ * @property {string} end - the name of the end stop
+ *
+ * @typedef {Object} Wagon
+ * @property {string} name - the textual name of the wagon (e.g. 'M5 BDx')
+ * @property {string} identifier - the identifier of the wagon (e.g. 'm5bdxr_1')
+ * @property {string} img - the path to the image of the wagon
+ * @property {string} company - the name of the company that uses the wagon
+ * @property {EndPointDefinition} endpoints - the start and end stops of the wagon
+ *
+ * @typedef {Object} Composition
+ * @property {string} condition - the periods the composition is valid ('Touristic', 'Holiday', 'General')
+ * @property {Wagon[]} composition - the wagons in the composition
+ *
+ * @typedef {Object} Trip
+ * @property {number} accuracy - the accuracy of the trip (0 - 5)
+ * @property {string[]} days - the days this trip is active
+ * @property {string[]} stops - the stops this trip makes (including endpoints)
+ * @property {EndStop} start - the start stop of the trip
+ * @property {EndStop} end - the end stop of the trip
+ * @property {Composition[]} compositions - the possible compositions of this trip
+ *
+ *
+ * @typedef {Object} Line
+ * @property {string} identifier - the identifier of the line (e.g. IC 3306)
+ * @property {string} number - the number of the line (e.g. 3306)
+ * @property {string} category - the category of the line (e.g. IC)
+ * @property {string} start - the start station of the line
+ * @property {string} end - the end station of the line
+ * @property {Trip[]} trips - the trips of the line
+ */
+
+//#endregion
+
 //#region global vars
+
 let lineSearchElement;
 let lineFormElement;
 let lineSearchResultsElement;
 let daySelectElement;
 let periodSelectElement;
-let noSearchResultsElement;
 
 let activeLine = null;
 let activeTrip = null;
@@ -14,6 +56,14 @@ const API_URL = 'http://composition.jarivanmelckebeke.be';
 
 //#region utils
 
+/**
+ * normalizes a stop name
+ *
+ * for example: 'Bruxelles-Midi/Brussel-Zuid' becomes 'Brussel-Zuid'
+ *
+ * @param {string} stop
+ * @returns {string}
+ */
 const normalizeStop = function (stop) {
     let stopName = stop;
     if (!stop) {
@@ -27,6 +77,11 @@ const normalizeStop = function (stop) {
     return stopName;
 }
 
+/**
+ * checks if a trip should be shown based on the selected day and period
+ * @param trip
+ * @returns {boolean} true if the trip should be shown, false otherwise
+ */
 const checkShouldShowTrip = function (trip) {
     const activeDays = trip.days.map(day => day.toLowerCase());
     if (activeDays.indexOf(daySelectElement.value) === -1) {
@@ -39,24 +94,22 @@ const checkShouldShowTrip = function (trip) {
 //#endregion
 
 //#region event listeners
+/**
+ * handles a search click
+ * @param {Event} event
+ */
 const handleFormSearchSubmit = function (event) {
     event.preventDefault();
     const lineSearchValue = lineSearchElement.value;
     loadLine(lineSearchValue);
 }
+//#endregion
 
-const onDaySelect = function (event) {
-    if (activeLine) {
-        htmlShowLine(activeLine);
-    }
-}
-
-const onPeriodSelect = function (event) {
-    if (activeLine) {
-        htmlShowLine(activeLine);
-    }
-}
-
+//#region api handlers
+/**
+ * checks the periods that a trip is active in and generates the period select
+ * @param trip - the trip to check
+ */
 const checkCompatiblePeriods = function (trip) {
     const compatiblePeriods = ["all"];
     console.log(trip);
@@ -74,6 +127,10 @@ const checkCompatiblePeriods = function (trip) {
     }
 }
 
+/**
+ * checks the days that a line is active in and generates the day select
+ * @param line
+ */
 const checkCompatibleDays = function (line) {
     const compatibleDays = [];
     for (const trip of line.trips) {
@@ -95,6 +152,10 @@ const checkCompatibleDays = function (line) {
 //#endregion
 
 //#region html generation
+/**
+ * generates the html for a line
+ * @param line
+ */
 const htmlShowLine = function (line) {
     checkCompatibleDays(line);
     let tripHtml = "";
@@ -112,22 +173,29 @@ const htmlShowLine = function (line) {
         </div>
         ${tripHtml}
     </div>`;
-    htmlGenerateAccuracyCharts();
+    htmlGenerateAccuracyChart();
     if (!activeLine) {
         htmlSetDaySelect();
     }
     activeLine = line;
 }
 
+/**
+ * handles the html if no line is found
+ */
 const htmlShowNoResults = function () {
     deactivateContainer('.js-day');
     activateContainer('.js-search-results');
     toggleClass('.js-search-results', 'c-container__results--empty', true);
-    lineSearchResultsElement.innerHTML = `<p class="c-text c-text__no-results">
-                                            No Lines Found
-                                           </p>`;
+    lineSearchResultsElement.innerHTML = `
+        <p class="c-text c-text__no-results">
+            No Lines Found
+       </p>`;
 }
 
+/**
+ * sets the day select to today or the first day that is active, also adds event listeners
+ */
 const htmlSetDaySelect = function () {
     // get day of the week lowercase
     const day = new Date().toLocaleString('en-us', {weekday: 'long'}).toLowerCase();
@@ -139,7 +207,10 @@ const htmlSetDaySelect = function () {
     periodSelectElement.addEventListener('change', onPeriodSelect);
 }
 
-const htmlGenerateAccuracyCharts = function () {
+/**
+ * generates the html for the accuracy chart
+ */
+const htmlGenerateAccuracyChart = function () {
     const containers = document.querySelectorAll('.js-accuracy');
     for (const container of containers) {
         const target = container.querySelector('.js-gauge');
@@ -172,10 +243,20 @@ const htmlGenerateAccuracyCharts = function () {
 
 }
 
-const htmlGenerateLineHeader = function (data) {
-    return `<h1 class="c-line-title js-line-title">${data.identifier}</h1>`;
+/**
+ * generates the header html for a line
+ * @param line - the line to generate the header for
+ * @returns {string} - the html for the line header
+ */
+const htmlGenerateLineHeader = function (line) {
+    return `<h1 class="c-line-title js-line-title">${line.identifier}</h1>`;
 }
 
+/**
+ * generates the html for a wagon
+ * @param wagon
+ * @returns {string} - the html for the wagon
+ */
 const htmlGenerateWagon = function (wagon) {
     return `<div class="c-wagons-table__item">
                 <img class="c-wagon__info c-wagon__image" src="${API_URL}${wagon.img}" 
@@ -186,6 +267,11 @@ const htmlGenerateWagon = function (wagon) {
             </div>`;
 }
 
+/**
+ * generates the html for a composition
+ * @param composition
+ * @returns {string}
+ */
 const htmlGenerateComposition = function (composition) {
     let condition = composition.condition;
     if (condition === 'General') {
@@ -198,13 +284,25 @@ const htmlGenerateComposition = function (composition) {
                 </div>
             </div>`;
 }
+
+/**
+ * generates the html for a stop
+ * @param stop
+ * @returns {string}
+ */
 const htmlGenerateStop = function (stop) {
     let stopName = normalizeStop(stop);
-    if (stopName) return `<li class="c-line-stops__item"><span class="c-line-stops__symbol"></span>${stopName}</li>`
+    if (stopName)
+        return `<li class="c-line-stops__item"><span class="c-line-stops__symbol"></span>${stopName}</li>`
     return '';
 }
 
 
+/**
+ * generates the html for a trip
+ * @param trip
+ * @returns {string}
+ */
 const htmlGenerateTrip = function (trip) {
     activeTrip = trip;
     checkCompatiblePeriods(trip);
@@ -392,6 +490,22 @@ const loadLine = function (line) {
             setTimeout(activateResults, 100);
         }
     });
+}
+
+/**
+ *
+ * @param event
+ */
+const onDaySelect = function (event) {
+    if (activeLine) {
+        htmlShowLine(activeLine);
+    }
+}
+
+const onPeriodSelect = function (event) {
+    if (activeLine) {
+        htmlShowLine(activeLine);
+    }
 }
 //#endregion
 
