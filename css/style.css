@@ -10,6 +10,7 @@ larger screens: 1280px
 
  */
 
+/*#region variables */
 :root {
 
     --color-pallette-1: #008FF5;
@@ -38,6 +39,9 @@ larger screens: 1280px
     --default-transition: var(--default-transition-timing) var(--default-transition-timing-function);
 }
 
+/*#endregion */
+
+/*#region generic elements */
 * {
     /*transition: all 1s ease-in !important;*/
 }
@@ -83,10 +87,12 @@ img {
     height: auto;
 }
 
+/*#endregion*/
 
 /*----------------------------------------------
 # Objects
 ------------------------------------------------*/
+/*#region objects */
 .o-hide-accessible {
     /* this is some shitty weird ass hack I hate */
     position: absolute;
@@ -99,9 +105,11 @@ img {
     border: 0;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Page
 ------------------------------------------------*/
+/*#region page */
 .c-page {
     height: 100vh;
     max-height: 100%;
@@ -120,10 +128,11 @@ img {
 }
 
 
+/*#endregion */
 /*----------------------------------------------
 # Container
 ----------------------------------------------*/
-
+/*#region container */
 .c-container {
     position: static;
     flex-grow: 0.00001;
@@ -153,6 +162,9 @@ img {
     max-height: 0;
     margin: 0;
     padding: 0;
+    content: "";
+    position: absolute;
+    left: -1000vh;
 }
 
 
@@ -180,7 +192,7 @@ img {
 /*----------------------------------------------
 ## Container - Search
 ----------------------------------------------*/
-
+/*#region container - search */
 .c-container__search {
     display: flex;
     flex-direction: row;
@@ -192,21 +204,23 @@ img {
     padding-bottom: 1rem;
 }
 
-
+/*#endregion */
 /*----------------------------------------------
 ## Container - Day
 ----------------------------------------------*/
+/*#region container - day */
 .c-container__period-select {
     background-color: var(--page-background-alternative);
     padding: 1rem 0;
     align-self: flex-end;
 }
 
+/*#endregion */
 
 /*----------------------------------------------
 ## Container - Results
 ----------------------------------------------*/
-
+/*#region container - results */
 .c-container__results {
     margin: 0 0 1rem;
     flex-grow: 1;
@@ -226,9 +240,45 @@ img {
     justify-content: center;
 }
 
+/*#endregion */
+
+/*----------------------------------------------
+## Container - Warning
+----------------------------------------------*/
+/*#region container - warning */
+.c-container__warning {
+    background-color: orange;
+    padding: 1.0rem 0;
+
+    align-self: flex-start;
+    /*position: relative;*/
+}
+
+.c-warning {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.c-warning-note {
+    font-weight: bold;
+}
+
+.c-warning__icon {
+    height: 0.9rem;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-right: 0.25rem;
+    margin-bottom: 0;
+
+}
+
+/*#endregion */
+
+/*#endregion */
 /*----------------------------------------------
 # Header
 ----------------------------------------------*/
+/*#region header */
 .c-header {
     padding: 1rem 0;
 
@@ -240,10 +290,11 @@ img {
 
 }
 
-
+/*#endregion */
 /*----------------------------------------------
 # Footer
 ----------------------------------------------*/
+/*#region footer */
 
 .c-footer {
     align-self: flex-end;
@@ -264,11 +315,11 @@ img {
     transition: all var(--default-transition-timing) ease-in;
 }
 
-
+/*#endregion */
 /*----------------------------------------------
 # Title
 ----------------------------------------------*/
-
+/*#region title */
 .c-title {
     font-size: 2rem;
     font-weight: 600;
@@ -276,10 +327,11 @@ img {
     margin-bottom: 1rem;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Form
 ----------------------------------------------*/
-
+/*#region form */
 .c-form {
     text-align: center;
     margin-bottom: 0;
@@ -304,10 +356,11 @@ img {
     width: 90vw;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Inputs
 ----------------------------------------------*/
-
+/*#region inputs */
 .c-input {
     display: flex;
     flex-direction: column;
@@ -349,10 +402,11 @@ img {
     opacity: 1;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Label
 ----------------------------------------------*/
-
+/*#region label */
 .c-label {
     position: relative;
     display: flex;
@@ -367,7 +421,7 @@ img {
 /*----------------------------------------------
 ## Label - Search
 ----------------------------------------------*/
-
+/*#region label - search */
 .c-label__search {
     display: block;
 }
@@ -401,10 +455,11 @@ img {
     color: var(--accent-color);
 }
 
+/*#endregion */
 /*----------------------------------------------
 ## Label - Day
 ----------------------------------------------*/
-
+/*#region label - day */
 .c-label__day {
     position: relative;
 }
@@ -413,11 +468,14 @@ img {
     font-weight: 600;
 }
 
+/*#endregion */
+
+/*#endregion */
 
 /*----------------------------------------------
 # Buttons
 ----------------------------------------------*/
-
+/*#region buttons */
 .c-button {
     display: inline-block;
     padding: 0.4rem 2rem;
@@ -464,9 +522,11 @@ img {
     /*background-color: hotpink;*/
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Period select section
 ----------------------------------------------*/
+/*#region period select section */
 .c-container__period-select {
     background-color: var(--page-background-alternative);
     padding: 1rem 0;
@@ -479,10 +539,11 @@ img {
     align-items: center;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Toggle
 ----------------------------------------------*/
-
+/*#region toggle */
 .c-option:checked + .c-custom-toggle .c-custom-toggle__fake-input {
     background-color: var(--color-pallette-1);
     border-color: #2E77E6;
@@ -529,10 +590,11 @@ img {
     transition: all var(--default-transition);
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Select
 ----------------------------------------------*/
-
+/*#region select */
 .c-custom-select {
     position: relative;
 }
@@ -569,10 +631,11 @@ img {
     width: 17ch;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Line stops
 ----------------------------------------------*/
-
+/*#region line stops */
 .c-line-stops {
     /*display: grid;*/
     justify-self: center;
@@ -581,7 +644,7 @@ img {
     padding: 0.5rem 0;
 }
 
-.c-line-stops__item {
+.c-line-stops__item, .c-line-stops__symbol {
     display: grid;
     position: relative;
     --horizontal-padding: 3rem;
@@ -613,13 +676,14 @@ img {
 }
 
 .c-line-stops__item:after {
-    /* this is the line */
+    /* this is the solid line */
     position: relative;
-    top: -1rem;
+    bottom: 1rem;
     right: 2rem;
     content: '';
     display: inline-block;
     width: 1px;
+
     height: calc(100% + 2 * var(--vertical-padding));
     background-color: var(--color-primary);
 }
@@ -632,11 +696,11 @@ img {
     height: 0;
 }
 
-
+/*#endregion */
 /*----------------------------------------------
 # Wagon table
 ----------------------------------------------*/
-
+/*#region wagon table */
 .c-wagons-table {
     /*display: grid;*/
     /*grid-template-columns: 1fr;*/
@@ -705,10 +769,11 @@ img {
     }
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Random components
 ----------------------------------------------*/
-
+/*#region misc components */
 .c-line-title {
     margin: 1rem auto;
     width: fit-content;
@@ -747,10 +812,11 @@ img {
     margin-left: 0.5rem;
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Accuracy gauge
 ----------------------------------------------*/
-
+/*#region accuracy gauge */
 .c-trip__accuracy {
     margin-top: 1rem;
     max-height: 7rem;
@@ -794,32 +860,11 @@ img {
     content: "%";
 }
 
-
-.c-container__warning {
-    background-color: orange;
-    padding: 1.0rem 1.5rem;
-
-    align-self: flex-start;
-    /*position: relative;*/
-}
-
-.c-warning {
-    font-weight: bold;
-}
-
-.c-warning__icon {
-    height: 0.9rem;
-    padding-bottom: 0;
-    padding-top: 0;
-    margin-right: 0.25rem;
-    margin-bottom: 0;
-
-}
-
+/*#endregion */
 /*----------------------------------------------
 # No results
 ----------------------------------------------*/
-
+/*#region no results */
 .c-text__no-results {
     font-weight: 600;
     font-size: 3rem;
@@ -828,7 +873,11 @@ img {
 
 }
 
-
+/*#endregion */
+/*----------------------------------------------
+# Loader
+----------------------------------------------*/
+/*#region loader */
 .c-loader {
     margin-top: 2.5rem;
     display: grid;
@@ -891,12 +940,15 @@ img {
     }
 }
 
+/*#endregion */
 /*----------------------------------------------
 # Utilities
 ----------------------------------------------*/
-
+/*#region utilities */
 .u-invisible {
     display: none;
     opacity: 0;
     visibility: collapse;
 }
+
+/*#endregion */

@@ -1,3 +1,4 @@
+//#region global vars
 let lineSearchElement;
 let lineFormElement;
 let lineSearchResultsElement;
@@ -9,6 +10,7 @@ let activeLine = null;
 let activeTrip = null;
 
 const API_URL = 'http://composition.jarivanmelckebeke.be';
+//#endregion
 
 //#region utils
 
@@ -101,6 +103,8 @@ const htmlShowLine = function (line) {
             tripHtml += htmlGenerateTrip(trip);
         }
     }
+
+
     lineSearchResultsElement.innerHTML = `
     <div class="c-result">
         <div class="c-result__header">
@@ -196,7 +200,7 @@ const htmlGenerateComposition = function (composition) {
 }
 const htmlGenerateStop = function (stop) {
     let stopName = normalizeStop(stop);
-    if (stopName) return `<li class="c-line-stops__item">${stopName}</li>`
+    if (stopName) return `<li class="c-line-stops__item"><span class="c-line-stops__symbol"></span>${stopName}</li>`
     return '';
 }
 
@@ -295,6 +299,7 @@ const activateResults = function () {
 
 const hideResults = function () {
     deactivateContainer('.js-search-results');
+    deactivateContainer('.js-warning');
     // deactivateContainer('.js-day');
     // don't deactivate day, because it's not needed
     deactivateContainer('.js-page');
@@ -302,6 +307,7 @@ const hideResults = function () {
 //#endregion
 
 
+//#region event handlers
 const loadLine = function (line) {
     hideResults();
     console.log('loading');
@@ -320,7 +326,7 @@ const loadLine = function (line) {
         }
     });
 }
-
+//#endregion
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM loaded');
