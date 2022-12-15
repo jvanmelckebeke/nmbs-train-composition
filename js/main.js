@@ -249,6 +249,21 @@ const htmlGenerateTrip = function (trip) {
 //#endregion
 
 //#region css tools
+/**
+ * sets the '--search-active' css modifier to the `.js-header` element,
+ * making the search element become smaller
+ *
+ * @param {boolean} active - whether there is content in the results container
+ */
+const setResultsActive = function (active) {
+
+    toggleClass('.js-header', '.c-container__header--search-active', active);
+}
+
+/**
+ * activates a container by removing the `--dead` and/or '--hidden' css modifiers
+ * @param {string} querySelector - the query selector of the container
+ */
 const activateContainer = function (querySelector) {
     const element = document.querySelector(querySelector);
     if (!element) {
@@ -269,6 +284,10 @@ const activateContainer = function (querySelector) {
     }
 }
 
+/**
+ * deactivates a container by adding the '--hidden' css modifiers
+ * @param {string} querySelector - the query selector of the container
+ */
 const deactivateContainer = function (querySelector) {
     const element = document.querySelector(querySelector);
     if (!element) {
@@ -279,6 +298,12 @@ const deactivateContainer = function (querySelector) {
     }
 }
 
+/**
+ * toggles a css class on the element
+ * @param {string} querySelector - the query selector of the element
+ * @param {string} className - the name of the class to toggle
+ * @param {boolean} shouldBeActive - whether the class should be active
+ */
 const toggleClass = function (querySelector, className, shouldBeActive) {
     const element = document.querySelector(querySelector);
     if (!element || (element.classList.contains(className) === shouldBeActive)) {
@@ -291,21 +316,62 @@ const toggleClass = function (querySelector, className, shouldBeActive) {
     }
 }
 
+/**
+ * activates the search results container
+ */
 const activateResults = function () {
     activateContainer('.js-search-results');
     activateContainer('.js-day');
     activateContainer('.js-page');
+    setResultsActive(true);
 }
 
+/**
+ * activates the warning that multiple compositions are possible
+ */
+const activateMultipleCompositionsWarning = function () {
+    console.log('activateMultipleCompositionsWarning');
+    activateContainer('.js-warning');
+}
+
+/**
+ * deactivates the warning that multiple compositions are possible
+ */
+const hideMultipleCompositionsWarning = function () {
+    console.log('hideMultipleCompositionsWarning');
+    deactivateContainer('.js-warning');
+}
+
+/**
+ * deactivates the search results container
+ */
 const hideResults = function () {
     deactivateContainer('.js-search-results');
     deactivateContainer('.js-warning');
     // deactivateContainer('.js-day');
     // don't deactivate day, because it's not needed
     deactivateContainer('.js-page');
+    setResultsActive(false);
 }
+
 //#endregion
 
+
+function checkShouldWarn(data) {
+    if (data.trips.length > 0) {
+        activateMultipleCompositionsWarning();
+        return;
+    }
+
+    for (const trip of data.trips) {
+        if (trip.compositions.length > 1) {
+            activateMultipleCompositionsWarning();
+            return;
+        }
+    }
+
+    hideMultipleCompositionsWarning();
+}
 
 //#region event handlers
 const loadLine = function (line) {
@@ -321,6 +387,7 @@ const loadLine = function (line) {
         } else {
             console.log(data);
             deactivateContainer('.js-no-results');
+            checkShouldWarn(data);
             htmlShowLine(data);
             setTimeout(activateResults, 100);
         }

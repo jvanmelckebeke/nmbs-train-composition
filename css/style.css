@@ -179,8 +179,8 @@ img {
     justify-content: center;
 }
 
-.c-container__header:has( + :not(.c-container--dead) ) {
-    height: 21rem;
+.c-container__header .c-container__header--search-active {
+    height: fit-content;
     flex-grow: 0;
 }
 
@@ -255,7 +255,7 @@ img {
 }
 
 .c-warning {
-    margin: 0 auto;
+    margin: 0 1rem;
     width: fit-content;
 }
 
@@ -269,7 +269,12 @@ img {
     padding-top: 0;
     margin-right: 0.25rem;
     margin-bottom: 0;
+}
 
+@media (min-width: 768px) {
+    .c-warning {
+        margin: 0 auto;
+    }
 }
 
 /*#endregion */
