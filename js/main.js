@@ -503,7 +503,7 @@ const fetchLine = function (line) {
             htmlShowLine(data);
             setTimeout(activateResults, 100);
         }
-        hideLoading();
+        setTimeout(hideLoading, 100);
     });
 }
 
