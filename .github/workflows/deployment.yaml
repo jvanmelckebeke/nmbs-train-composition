@@ -17,12 +17,12 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: "./.github/sync-s3"
         with:
-          deploy-bucket: "train.jarivanmelckebeke.be"
+          deploy-bucket: "train"
           commit-hash: ${{ github.sha }}
 
       - name: Sync code with S3 preview bucket
         if: github.ref != 'refs/heads/main'
         uses: "./.github/sync-s3"
         with:
-          deploy-bucket: "train-preview.jarivanmelckebeke.be"
+          deploy-bucket: "dev.train"
           commit-hash: ${{ github.sha }}
