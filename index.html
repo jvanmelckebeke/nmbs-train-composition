@@ -33,60 +33,63 @@
             </div>
         </form>
     </div>
-    <div class="c-container c-container--dead c-container--hidden c-container__period-select js-day">
-        <form action="" method="get" class="c-form c-form__period-select js-form-day">
-            <div class="c-form-control c-form-control__day">
-                <label class="c-label c-label__day">
-                    <span class="c-label__text c-label-text__day">Day</span>
-                    <select class="c-input c-select c-select__day js-day-select" name="day">
-                        <option value="monday">Monday</option>
-                        <option value="tuesday">Tuesday</option>
-                        <option value="wednesday">Wednesday</option>
-                        <option value="thursday">Thursday</option>
-                        <option value="friday">Friday</option>
-                        <option value="saturday">Saturday</option>
-                        <option value="sunday">Sunday</option>
-                    </select>
-                    <svg class="c-custom-select__symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M7,10l5,5,5-5Z"></path>
-                    </svg>
-                </label>
-            </div>
-            <div class="c-form-control c-form-control__period">
-                <label class="c-label c-label__period">
-                    <span class="c-label__text c-label-period--text">Period</span>
-                    <select class="c-input c-select c-select__period js-period-select" name="period">
-                        <option value="all">All</option>
-                        <option value="General">Normal Service</option>
-                        <option value="During the period of annual holidays">Annual holidays</option>
-                        <option value="During the touristic period">Touristic period</option>
-                    </select>
-                    <svg class="c-custom-select__symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M7,10l5,5,5-5Z"></path>
-                    </svg>
-                </label>
-            </div>
-        </form>
-    </div>
-    <div class="c-container c-container--dead c-container--hidden c-container__warning js-warning">
-        <i>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" class="c-warning__icon">
-                <path d="M96 64c0-17.7-14.3-32-32-32S32 46.3 32 64V320c0 17.7 14.3 32 32 32s32-14.3 32-32V64zM64 480c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40s17.9 40 40 40z"/>
-            </svg>
-        </i>
-        <span class="c-warning"> Warning: </span>
+</section>
+<section class="c-container c-container--dead c-container--hidden c-container__warning js-warning">
+    <div class="c-warning">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" class="c-warning__icon">
+            <path d="M96 64c0-17.7-14.3-32-32-32S32 46.3 32 64V320c0 17.7 14.3 32 32 32s32-14.3 32-32V64zM64 480c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40s17.9 40 40 40z"/>
+        </svg>
+        <span class="c-warning-note"> Warning: </span>
         <p class="js-warning-text">
-            This line has different compositions for different days of the week and
+            This line has different compositions for different weekdays and/or
             different periods of the year.
         </p>
     </div>
 </section>
-<section class="c-container c-container--dead c-container--hidden c-container__results js-search-results">
+
+<section class="c-container c-container--dead c-container--hidden c-container__period-select js-day">
+    <form action="" method="get" class="c-form c-form__period-select js-form-day">
+        <div class="c-form-control c-form-control__day">
+            <label class="c-label c-label__day">
+                <span class="c-label__text c-label-text__day">Day</span>
+                <select class="c-input c-select c-select__day js-day-select" name="day">
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                    <option value="sunday">Sunday</option>
+                </select>
+                <svg class="c-custom-select__symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M7,10l5,5,5-5Z"></path>
+                </svg>
+            </label>
+        </div>
+        <div class="c-form-control c-form-control__period">
+            <label class="c-label c-label__period">
+                <span class="c-label__text c-label-period--text">Period</span>
+                <select class="c-input c-select c-select__period js-period-select" name="period">
+                    <option value="all">All</option>
+                    <option value="General">Normal Service</option>
+                    <option value="During the period of annual holidays">Annual holidays</option>
+                    <option value="During the touristic period">Touristic period</option>
+                </select>
+                <svg class="c-custom-select__symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M7,10l5,5,5-5Z"></path>
+                </svg>
+            </label>
+        </div>
+    </form>
 </section>
-<section class="c-container c-container--dead c-container--hidden c-container__no-results js-no-results">
-    <p class="c-text c-text__no-results">
-        No Lines Found
-    </p>
+
+<section class="c-container c-container--dead c-container--hidden c-container__loader js-search-results">
+    <!--<div class="c-loader">
+        <svg class="c-loader__svg">
+            <circle class="c-loader__icon" cx="44" cy="44" r="40" stroke="black"
+                    stroke-width="8" stroke-dashoffset="50" stroke-dasharray="95" fill-opacity="0"/>
+        </svg>
+    </div>-->
 </section>
 <footer class="c-container c-footer">
     <p>
