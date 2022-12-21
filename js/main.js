@@ -158,6 +158,11 @@ const checkCompatibleDays = function (line) {
  * @param line
  */
 const htmlShowLine = function (line) {
+    if (!activeLine) {
+        htmlSetDaySelect();
+    }
+    activeLine = line;
+
     checkCompatibleDays(line);
     let tripHtml = "";
     for (const trip of line.trips) {
@@ -175,10 +180,7 @@ const htmlShowLine = function (line) {
         ${tripHtml}
     </div>`;
     htmlGenerateAccuracyChart();
-    if (!activeLine) {
-        htmlSetDaySelect();
-    }
-    activeLine = line;
+
 }
 
 /**
@@ -473,7 +475,7 @@ const hideLoading = function () {
 
 
 function checkShouldWarn(data) {
-    if (data.trips.length > 0) {
+    if (data.trips.length > 1) {
         activateMultipleCompositionsWarning();
         return;
     }

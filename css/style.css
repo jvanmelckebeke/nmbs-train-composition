@@ -255,6 +255,7 @@ img {
     flex-direction: column;
     justify-content: center;
 }
+
 /*----------------------------------------------
 ## Container - Warning
 ----------------------------------------------*/
@@ -408,6 +409,7 @@ img {
     -moz-appearance: textfield;
 }
 
+
 .c-input__search:focus {
     outline: var(--outline-color) 3px solid;
 }
@@ -423,6 +425,15 @@ img {
     border-radius: 2rem;
     max-width: 90vw;
     opacity: 1;
+}
+
+
+@media (min-width: 1024px) {
+    .c-form-control:focus-within .c-input__search,
+    .c-input__search:not(:placeholder-shown),
+    .c-input__search:focus {
+        width: 50%;
+    }
 }
 
 /*#endregion */
